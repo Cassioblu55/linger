@@ -1,0 +1,27 @@
+{
+  "name": "linger",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Cassioblu55/linger",
+  "authors": [
+    "Cassio Hudson <cassioblubyrd@gmail.com>"
+  ],
+  "description": "linger website",
+  "main": "index.php",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "bar",
+    "website",
+    "great"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/",
+    "test",
+    "tests"
+  ]
+}
