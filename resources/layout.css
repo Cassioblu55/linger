@@ -23,6 +23,11 @@ body, .main_nav{
 	display: inline;
 }
 
+.showDisplay{
+	white-space: pre-wrap; 
+	overflow: auto;
+}
+
 .main_border{
 	border: 1px solid #d9ca76;
 }
