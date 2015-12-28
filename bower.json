@@ -23,5 +23,8 @@
     "resources/",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "moment": "~2.10.6"
+  }
 }

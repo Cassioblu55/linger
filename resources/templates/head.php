@@ -3,6 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <script type="text/javascript">var baseURL = "<?php echo $baseURL;?>";</script>
 <?php include_once $serverPath.'resources/templates/header.php';?>
+<link rel="stylesheet" href="<?php echo $baseURL;?>resources/layout.css"/>	
 
 <script> 	
 var baseURL = "<?php echo $baseURL;?>";
