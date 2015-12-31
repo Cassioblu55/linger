@@ -5,12 +5,16 @@
 	$table = "events";
 	
 	if (! empty ( $_POST )) {
+		$data = createDataFromPost($table);
+		$data['image'] = "'".addslashes(file_get_contents($_FILES['image']['tmp_name']))."'";
+		$data['image_name'] = addslashes($_FILES['image']['name']);
+		echo json_encode($data);
 		if (empty ( $_GET ['id'] )) {
-			$id  = insertFromPostWithIdReturn($table);
+			$id  = insertAndReturnId($table, $data);
 		}
 	
 		else {
-			updateFromPost($table);
+			update($table, $data);
 			$id = $_GET['id'];
 		}
 		header ( "Location: index.php");
@@ -22,7 +26,7 @@
 ?>
 
 <div ng-controller="AddEditEvent">
-	<form action="edit.php<?php if(!empty($_GET['id'])){ echo "?id=".$_GET['id'];}?>" method="post">
+	<form action="edit.php<?php if(!empty($_GET['id'])){ echo "?id=".$_GET['id'];}?>" enctype="multipart/form-data" method="post">
 		<div class="row">
 			<div class="col-md-6">
 			<!-- panel -->
@@ -59,15 +63,15 @@
 							<div class="row">
 								<div class="col-md-4">
 									<label for="singleDay">Date</label>
-									<input ng-model="dates.startDate" type="date" class="form-control"/>
+									<input ng-model="event.startDate" type="date" class="form-control"/>
 								</div>
 								<div class="col-md-4">
 									<label>Start Time</label>
-									<input ng-model="dates.days[0].startTime" type="time" class="form-control"/>
+									<input ng-model="days[0].startTime" type="time" class="form-control"/>
 								</div>
 								<div class="col-md-4">
 									<label>End Time</label>
-									<input ng-model="dates.days[0].endTime" type="time" class="form-control"/>
+									<input ng-model="days[0].endTime" type="time" class="form-control"/>
 								</div>
 							
 							</div>
@@ -83,7 +87,7 @@
 								<!-- panel  header -->
 								<div class="panel-heading clearfix">
 									<h3 class="panel-title pull-left">Days</h3>
-									<button type="button" class="btn btn-primary btn-sm pull-right" ng-click='date.days.push({})'>Add</button>
+									<button type="button" class="btn btn-primary btn-sm pull-right" ng-click='days.push({})'>Add</button>
 								</div>
 								<!-- panel header ends -->
 								<!-- panel body -->
@@ -93,28 +97,28 @@
 										<!-- start date -->
 										<div class="col-md-6">
 											<label for="startDate">Start Date</label>
-											<input type="date" ng-model="date.startDate" class="form-control">
+											<input type="date" ng-model="event.startDate" class="form-control">
 										</div>
 										<!-- start date ends-->
 										<!-- end date -->
 										<div class="col-md-6">
 											<label for="startDate">End Date</label>
-											<input type="date" ng-model="date.endDate" class="form-control">
+											<input type="date" ng-model="event.endDate" class="form-control">
 										</div>
 										<!-- end date ends-->
 									</div>
-									<div ng-show="date.days.length==0">Add a Day</div>
+									<div ng-show="days.length==0">Add a Day</div>
 									<!-- more then 0 dates -->
 									
 									
-									<div ng-show="date.days.length>0">
+									<div ng-show="days.length>0">
 										<div class="row">
 											<div class="col-md-3"><label>Day</label></div>
 											<div class="col-md-3"><label>Start Time</label></div>
 											<div class="col-md-3"><label>End Time</label></div>
 										</div>
 										<!-- dates -->
-										<div ng-repeat="day in date.days track by $index">
+										<div ng-repeat="day in days track by $index">
 											<div class="row form-group">
 												<!-- days of the week -->
 												<div class="col-md-3">
@@ -136,7 +140,7 @@
 												<!-- end time ends -->
 												<!-- delete -->
 												<div class="col-md-3 form-group">
-													<button class="btn btn-danger" type="button" ng-click="date.days.splice($index,1)">Delete</button>
+													<button class="btn btn-danger" type="button" ng-click="days.splice($index,1)">Delete</button>
 												</div>
 												<!-- delete ends -->
 												
@@ -157,6 +161,13 @@
 					<textarea rows="5" name="description" class="form-control">{{event.description}}</textarea>
 				</div>
 				<!-- description ends -->
+				
+				<!-- image -->
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="image">Image</label> -->
+<!-- 					<input type="file" id='image' name='image' /> -->
+<!-- 				</div> -->
+				<!-- image ends-->
 				
 				<!-- active -->
 				<div class="row form-group">
@@ -184,7 +195,9 @@
 			</div>
 		</div>
 		
-		<input name="dates" class="hidden" ng-model="date_text" type="text">
+		<input name="dates" class="hidden" ng-model="days_text" type="text">
+		<input name="startDate" class="hidden" ng-model="startDateInMillis" type="text">
+		<input name="endDate" class="hidden" ng-model="endDateInMillis" type="text">
 		
 	</form>
 
@@ -200,36 +213,48 @@ app.controller('AddEditEvent', ['$scope', "$controller" , function($scope, $cont
 	$scope.saveOrUpdate = "Save";
 	$scope.event = {};
 	$scope.event.type="recurring";
-	$scope.date ={};
-	$scope.date.days =[];
+	$scope.days =[];
 	$scope.event.active="Yes";
 
-	$scope.$watch('event.type', function(oldVal, val){
+	$scope.$watch('event.type', function(val, oldVal){
 		if(oldVal && oldVal != val){
-			$scope.dates ={};
-			$scope.days = [];
+			$scope.days =[];
 			if(val == 'singleDay'){
-				$scope.dates.day.push({});
+				$scope.days.push({});
 			}
 		}
 	});
 
-	$scope.$watch('date', function(val){
-		if(val){
-			$scope.date_text = JSON.stringify(val);
-		}
+	$scope.$watch('days', function(val){
+			$scope.days_text = (val) ? JSON.stringify(val) : null;
 	},true);
+
+	$scope.$watch('event.startDate', function(val){
+		if(val && val instanceof Date){
+			$scope.startDateInMillis = val.getTime();
+		}else{
+			$scope.startDateInMillis = null;
+		}
+	});
+
+	$scope.$watch('event.endDate', function(val){
+		if(val && val instanceof Date){
+			$scope.endDateInMillis = val.getTime();
+		}else{
+			$scope.endDateInMillis = null;
+		}
+	});
 	
 	function setEvent(event){
 		$scope.addOrEdit = "Edit";
 		$scope.saveOrUpdate = "Update";
 		$scope.event = event;
-		$scope.date = JSON.parse(event.dates);
-		$scope.date.startDate = ($scope.date.startDate) ? new Date($scope.date.startDate) : null;
-		$scope.date.endDate = ($scope.date.endDate) ? new Date($scope.date.endDate) : null;
-		for(var i=0; i<$scope.date.days.length; i++){
-			$scope.date.days[i].startTime = new Date($scope.date.days[i].startTime);
-			$scope.date.days[i].endTime = new Date($scope.date.days[i].endTime);
+		$scope.days = JSON.parse(event.dates);
+		$scope.event.startDate = ($scope.event.startDate && $scope.event.startDate != 0) ? new Date(Number($scope.event.startDate)) : null;
+		$scope.event.endDate = ($scope.event.endDate && $scope.event.endDate != 0) ? new Date(Number($scope.event.endDate)) : null;
+		for(var i=0; i<$scope.days.length; i++){
+			$scope.days[i].startTime = new Date($scope.days[i].startTime);
+			$scope.days[i].endTime = new Date($scope.days[i].endTime);
 			}		
 		}
 	

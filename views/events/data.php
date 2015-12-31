@@ -9,13 +9,12 @@ if(!empty($_GET['id'])){
 	echo json_encode(findById($table, $id));
 }
 
-if(!empty($_GET['get'])){
-	$get = $_GET['get'];
-	if($get == 'all'){
-		echo json_encode(getAllData($table));
-		
-	}
-	
+if(!empty($_GET['startDate']) && !empty($_GET['endDate'])){
+	$startDate = $_GET['startDate'];
+	$endDate = $_GET['endDate'];
+	$query= "Select * FROM ".getTableQuote($table)." WHERE active='Yes' AND ((startDate >= $startDate AND endDate <= $endDate) 
+				OR (startDate=0 AND endDate <= $endDate) OR  (startDate >= $startDate AND endDate=0) OR (startDate=0 AND endDate=0));";
+	echo json_encode(runQuery($query));
 }
 
 ?>

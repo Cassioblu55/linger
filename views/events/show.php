@@ -75,14 +75,6 @@ app.controller('EventShowController', ['$scope', "$controller" , function($scope
 		$scope.date = JSON.parse(event.dates);
 	}
 
-	$scope.getDateDisplay = function(date){
-		return moment(date).format('dddd MMMM Do YYYY');
-	}
-
-	$scope.getTimeDisplay = function(time){
-		return moment(time).format('h:mma');
-	}
-
 	$scope.getStartString = function(){
 		if($scope.date){
 			if($scope.date.startDate && !$scope.date.endDate){

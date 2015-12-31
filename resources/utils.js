@@ -223,6 +223,14 @@ app.controller("UtilsController", ['$scope', "$http", "$window", function($scope
 		return string;
 	}
 	
+	$scope.getDateDisplay = function(date){
+		return moment(date).format('dddd MMMM Do YYYY');
+	}
+
+	$scope.getTimeDisplay = function(time){
+		return moment(time).format('h:mma');
+	}
+	
 	$scope.columnSizeByHash = function(hash, size, max){
 		var length = Object.keys(hash).length;
 		var c = "col-"+size+"-";
