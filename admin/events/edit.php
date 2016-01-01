@@ -8,7 +8,6 @@
 		$data = createDataFromPost($table);
 		//$data['image'] = "'".addslashes(file_get_contents($_FILES['image']['tmp_name']))."'";
 		//$data['image_name'] = addslashes($_FILES['image']['name']);
-		echo json_encode($data);
 		if (empty ( $_GET ['id'] )) {
 			$id  = insertAndReturnId($table, $data);
 		}
