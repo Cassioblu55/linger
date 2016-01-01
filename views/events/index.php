@@ -59,6 +59,7 @@
 			var startDate = Date.parse($scope.start_date);
 			var endDate = Date.parse($scope.end_date);
 			var query ='data.php?startDate='+startDate+'&endDate='+endDate;
+			console.log(query);
 			return query;
 		}
 
