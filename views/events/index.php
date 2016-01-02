@@ -59,7 +59,7 @@
 			var startDate = Date.parse($scope.start_date);
 			var endDate = Date.parse($scope.end_date);
 			var query ='data.php?startDate='+startDate+'&endDate='+endDate;
-			console.log(query);
+			//console.log(query);
 			return query;
 		}
 
@@ -77,17 +77,20 @@
 		}
 
 		function getDayNumber(event){
-			var number;
+			var number; var todayNumber = new Date().getDay();
 			if(event.type =='recurring'){
-				var days = [];
+				//This will loop through the days a recurring event happens and will use the closest day in the future
 				for(var i=0; i<event.dates.length; i++){
-					days.push(daysToNumbersHash[event.dates[i].dayOfWeek]);
+					var n = daysToNumbersHash[event.dates[i].dayOfWeek];
+					if(!number){number = n;}
+					else if(n-todayNumber >= 0 && n-todayNumber < number){
+						number = n;
+					}
 				}
-				number= Math.min.apply(null, days);
 			}else if(event.type =='singleDay'){
 				number = new Date(event.startDate).getDay();
 			}
-			number = number - new Date().getDay();
+			number = number - todayNumber;
 			if(number <0){number +=7;}
 			return number;
 		}
