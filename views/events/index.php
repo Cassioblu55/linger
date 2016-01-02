@@ -1,4 +1,5 @@
 <?php
+	$title = "Linger Events";
 	include_once '../../config/config.php';
 	include_once $serverPath.'resources/templates/head.php';
 ?>
