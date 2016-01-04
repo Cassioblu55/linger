@@ -18,7 +18,7 @@
 				<li><a class="menu_link">Book A Party</a></li>
 				<li><a class="menu_link">Location</a></li>
 				<li><a class="menu_link">Contact</a></li>
-				<li><a class="menu_link">Photos</a></li>
+				<li><a class="menu_link" href="<?php echo $baseURL;?>views/photos/">Photos</a></li>
 			</ul>
 		</div>	
 	</div>

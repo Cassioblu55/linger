@@ -151,6 +151,16 @@ function getTrapSting(traps){
 	return JSON.stringify(trapStrings);
 }
 
+function getRequest(base,params){
+	var keys = Object.keys(params);
+	var url = base;
+	for(var i=0; i<keys.length; i++){
+		var adder = (i==0) ? "?" : "&";
+		url = url +adder+keys[i]+"="+params[keys[i]];
+	}
+	return url;
+}
+
 app.controller("UtilsController", ['$scope', "$http", "$window", function($scope, $http, $window){	
 	
 	$scope.deleteById = function(id, name, runOnSuccess, runOnFailed){
@@ -235,6 +245,18 @@ app.controller("UtilsController", ['$scope', "$http", "$window", function($scope
 		var length = Object.keys(hash).length;
 		var c = "col-"+size+"-";
 		return (length <= 12 && length >0 && length <=max) ? 'col-'+size+'-'+(Math.floor(12/length)) : '';
+	}
+	
+	$scope.setFromFacebook = function(get, setFunct, runOnFailed){
+		var hash =  {client_id : "104201949958641", client_secret : "92ce6504f5ed39bd37a9ce788c2e60e6",grant_type : "client_credentials" };
+		var tokenUrl = getRequest("https://graph.facebook.com/oauth/access_token", hash);
+		$http.get(tokenUrl).then(function(reponse){
+			var token =  reponse.data;
+			$scope.setFromGet(get+"&"+token, setFunct, runOnFailed);
+			
+
+		});
+		
 	}
 	
 	$scope.columnSizeByArray = function(array, size, max){

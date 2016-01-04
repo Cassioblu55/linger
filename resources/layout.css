@@ -9,9 +9,23 @@ body, .main_nav{
 	border: 0px; 
 }
 
+.modal-header, .modal-content, .modal-body{
+	    background-color: black;	
+}
+
 .navbar-default .navbar-toggle {
     border-color: #DDD;
     text-align: right;
+}
+
+.albumDisplay{
+	cursor: pointer; 
+	padding: 10px;
+}
+
+.albumDisplay:hover{
+	border: solid 5px #d9ca76;
+	padding: 0px;
 }
 
 .navbar-default .navbar-toggle:hover,
@@ -38,6 +52,32 @@ body, .main_nav{
 	font-size: 40px;
 	font-family: Georgia;
 
+}
+
+td.photoNav{
+	width: 50px;
+	font-size: 100px;
+	text-align: center;
+	font-family: Georgia;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+td.photoNav:hover{
+	cursor: pointer;
+	color: #d9ca76;
+}
+
+.albumTitle{
+	text-align: center;
+	font-family: Georgia;
 }
 
 

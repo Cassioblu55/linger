@@ -23,6 +23,7 @@ var baseURL = "<?php echo $baseURL;?>";
 </div>
 <?php include_once $serverPath.'resources/templates/menu.php';?>
 
+<script src="//connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript">
 app.controller("TitleController", ['$scope', "$controller", function($scope, $controller){
 	angular.extend(this, $controller('UtilsController', {$scope: $scope}));	
@@ -31,6 +32,22 @@ app.controller("TitleController", ['$scope', "$controller", function($scope, $co
 	$scope.smallLine = {'width': getWidthPlus($('#main_title').width(), 0.05)};
 
 }]);
+
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '<?php echo $appId;?>',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 
 </script>
 
