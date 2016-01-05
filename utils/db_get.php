@@ -22,6 +22,12 @@ function getSpecificData($table, $columns){
 	return runQuery($query);
 }
 
+function getSpecificDataNoId($table, $columns){
+	$columnsString = arrayToString($columns)."";
+	$query = "SELECT ".$columnsString." FROM ".getTableQuote($table).";";
+	return runQuery($query);
+}
+
 function getRandomId($table){
 	$query = "SELECT id FROM ".getTableQuote($table)." ORDER BY RAND() LIMIT 1;";
 	return runQuery($query)[0]['id'];

@@ -53,14 +53,20 @@ include_once $serverPath.'resources/templates/head.php';
 <script>
 app.controller('PhotoIndex', ['$scope', "$controller" , function($scope, $controller){
 	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
-
+	
 	function setAlbums(a){	
 		var data = a.data;
-		var albums = [];
-		for(var i=0; i<data.length; i++){
-			if(data[i].cover_photo){albums.push(data[i]);}
-		}
-		$scope.albums = albums;
+		$scope.albums = [];
+		$scope.setFromGet('data.php?get=whitelistedAlbumns', function(whiteListed){
+			var whitListedIds = [];
+			for(var i=0; i<whiteListed.length; i++){
+				whitListedIds.push(whiteListed[i].faceBookID);
+			}	
+			for(var i=0; i<data.length; i++){
+				if(whitListedIds.indexOf(data[i].id) > -1){$scope.albums.push(data[i]);}
+			}
+			
+		});
 	}
 
 	function setActivePhotos(photos){

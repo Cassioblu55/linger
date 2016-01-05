@@ -175,6 +175,16 @@ app.controller("UtilsController", ['$scope', "$http", "$window", function($scope
 		}
 	}
 	
+	$scope.runPost = function(post,data,  runOnSuccess, runOnFailed){
+		$http.post(post, data)
+		.then(function(response){
+			run(runOnSuccess);
+		}, function errorCallback(response){
+			run(runOnFailed);
+		});
+	}
+	
+	
 	$scope.deleteWithRedirect = function(id, name){
 		$scope.deleteById(id, name, $scope.redirectToIndex);
 	}

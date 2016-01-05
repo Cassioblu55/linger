@@ -16,7 +16,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="<?php echo $baseURL;?>admin/events/">Events</a></li>
-			
+				<li><a href="<?php echo $baseURL;?>admin/photos/">Photos</a></li>
 			</ul>
 		
 		</div>
