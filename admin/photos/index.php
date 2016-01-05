@@ -9,7 +9,6 @@
 			<div class="panel panel-default">
 				<div class="panel-heading clearfix">
 					<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Albumns Displayed</h4>
-					<button type="button" class ="btn btn-primary pull-right">Add</button>
 				</div>
 				<div class="panel-body">
 					<div ui-grid="ShownAlbumnsGrid" external-scopes="$scope" style="height: 400px;"></div>
@@ -20,7 +19,6 @@
 			<div class="panel panel-default">
 				<div class="panel-heading clearfix">
 					<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Albumns Not Displayed</h4>
-					<button type="button" ng-click="HiddenAlbumnsGridShow = !HiddenAlbumnsGridShow" class ="btn btn-primary pull-right">{{(HiddenAlbumnsGridShow) ? 'Hide' : 'Show'}}</button>
 				</div>
 				<div class="panel-body" ng-show="HiddenAlbumnsGridShow">
 					<div ui-grid="HiddenAlbumnsGrid"  external-scopes="$scope" style="height: 400px;"></div>
