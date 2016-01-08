@@ -17,6 +17,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="<?php echo $baseURL;?>admin/events/">Events</a></li>
 				<li><a href="<?php echo $baseURL;?>admin/photos/">Photos</a></li>
+				<li><a href="<?php echo $baseURL;?>admin/menu/">Menu</a></li>
 			</ul>
 		
 		</div>

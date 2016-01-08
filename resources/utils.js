@@ -14,6 +14,15 @@ function getWidthPlus(width, percent){
 	return width+(width*percent);
 }
 
+Array.prototype.findByProperty = function(value, param){
+	param = param || 'id';
+	for(var i=0; i<this.length; i++){
+		if(this[i][param] == value){return this[i];}
+	}
+	return null;
+	
+}
+
 String.prototype.escapeSpecialChars = function() {
     return this.replace(new RegExp( "\n", "g" ), "\\n")
     			replace(new RegExp( "'", "g" ), "\\'")
