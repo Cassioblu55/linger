@@ -14,7 +14,7 @@
 			<ul class="nav navbar-nav" >
 				<li><a class="menu_link" href="<?php echo $baseURL;?>">Home</a></li>
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/events/">Events</a></li>
-				<li><a class="menu_link">Menu</a></li>
+				<li><a class="menu_link" href="<?php echo $baseURL;?>views/menu/">Menu</a></li>
 				<li><a class="menu_link">Book A Party</a></li>
 				<li><a class="menu_link">Location</a></li>
 				<li><a class="menu_link">Contact</a></li>

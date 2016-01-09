@@ -17,7 +17,7 @@ var baseURL = "<?php echo $baseURL;?>";
 <hr class="title_line small bottom" ng-style="smallLine"></hr>
 <hr class="title_line" ng-style="largeLine"></hr>
 </div>
-<div class="main_subtitle">
+<div class="main_subtitle italic">
 	<span id="sub_title">Where Friends Gather</span>
 </div>
 </div>

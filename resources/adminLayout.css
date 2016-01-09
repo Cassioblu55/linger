@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+
+.cellImagePreview{
+	font-weight: bold;
+	
+}
+
+.cellImagePreview:HOVER {
+	cursor: pointer;
+	
+	text-decoration: underline;
+}

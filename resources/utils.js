@@ -23,11 +23,21 @@ Array.prototype.findByProperty = function(value, param){
 	
 }
 
+String.prototype.sanitize = function(){
+    return this.replace(/\\/g, "\\\\")
+    			.replace(/\n/g, "\\n")
+    			.replace(/\r/g, "\\r")
+    			.replace(/\t/g, "\\t")
+    			.replace(/\f/g, "\\f")
+    			.replace(/"/g,"\\\"")
+    			.replace(/'/g,"\\\'")
+    			.replace(/\&/g, "\\&"); 
+}
+
 String.prototype.escapeSpecialChars = function() {
     return this.replace(new RegExp( "\n", "g" ), "\\n")
-    			replace(new RegExp( "'", "g" ), "\\'")
+    			.replace(new RegExp( "'", "g" ), "\\'")
     		   .replace(new RegExp("\'", "g"), "\\'")
-    		   .replace(new RegExp("\&", "g"), "\\&")
     		   .replace(new RegExp("\r", "g"), "\\r")
     		   .replace(new RegExp("\t", "g"), "\\t")
     		   .replace(new RegExp("\b", "g"), "\\b")
@@ -193,7 +203,6 @@ app.controller("UtilsController", ['$scope', "$http", "$window", function($scope
 		});
 	}
 	
-	
 	$scope.deleteWithRedirect = function(id, name){
 		$scope.deleteById(id, name, $scope.redirectToIndex);
 	}
@@ -272,10 +281,16 @@ app.controller("UtilsController", ['$scope', "$http", "$window", function($scope
 		$http.get(tokenUrl).then(function(reponse){
 			var token =  reponse.data;
 			$scope.setFromGet(get+"&"+token, setFunct, runOnFailed);
-			
-
 		});
 		
+	}
+	
+	$scope.getKeys = function(hash){
+		var keys = (hash) ? Object.keys(hash) : [];
+		for(var i=0; i<keys.length; i++){
+			if(keys[i] == "$$hashKey"){keys.splice(i, 1);}
+		}
+		return keys;
 	}
 	
 	$scope.columnSizeByArray = function(array, size, max){

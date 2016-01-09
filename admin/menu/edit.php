@@ -46,7 +46,10 @@
 					<div class="row form-group">
 						<div class="col-md-6">
 							<label for="type">Type</label>
-							<input type="text" id="type" required="required" name="type" class="form-control" ng-model="drink.type" placeholder="Type">
+							<select class="form-control" required="required" ng-model= "drink.type" name="type" id="type">
+								<option value=''>Select One</option>
+								<option ng-repeat="type in drink_types" ng-selected="drink.type==type">{{type}}</option>
+							</select>
 						</div>
 					</div>
 					<!-- type ends -->
@@ -107,6 +110,7 @@ app.controller('AddEditDrink', ['$scope', "$controller" , function($scope, $cont
 	$scope.addOrEdit = "Add";
 	$scope.saveOrUpdate = "Save";
 	$scope.drink = {};
+	$scope.drink_types = ['Vodka','Cognac','Tequila','Rum','Gin','Whiskey','Beer','Wine','Sparkling Wines','Mocktails','Other Beverages'];
 
 	$scope.menuImage = {};
 	
@@ -121,7 +125,7 @@ app.controller('AddEditDrink', ['$scope', "$controller" , function($scope, $cont
 
 	$scope.$watch('menuImage', function(val){
 		if(val){
-			$scope.imageText = JSON.stringify(val);
+			$scope.imageText = JSON.stringify(val).sanitize();
 		}
 	},true);
 

@@ -9,7 +9,6 @@
 		if($get == "grid"){
 			echo json_encode(getAllData($table));
 		}
-		
 	}
 
 	if(!empty($_GET['id'])){

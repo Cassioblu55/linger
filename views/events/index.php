@@ -13,7 +13,7 @@
 			<!-- repate events -->
 			<hr>
 			<div ng-repeat="event in events">
-				<h3 style="color: #d9ca76">{{event.name}}</h3>
+				<h3 class="primary-color">{{event.name}}</h3>
 				<div ng-show="event.type=='singleDay'">
 					<div>{{getDateDisplay(event.startDate)}} from {{getTimeDisplay(event.dates[0].startTime)}} to {{getTimeDisplay(event.dates[0].endTime)}}</div>
 				</div>

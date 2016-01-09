@@ -3,11 +3,35 @@
 body, .main_nav{
     background-color: black;
     color: white;
+    font-family: Georgia;
 }
 
 .main_nav{
 	border: 0px; 
 }
+
+.underline{
+	text-decoration: underline;
+	
+}
+
+.primary-color{
+	color: #d9ca76;
+}
+
+.imageClick:HOVER{
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+.italic{
+	font-style: italic;
+}
+
 
 .modal-header, .modal-content, .modal-body{
 	    background-color: black;	
