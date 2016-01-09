@@ -59,7 +59,7 @@ app.controller("MenuAdminIndexController", ['$scope', "$controller" , function($
 	  	$scope.setFromGet('data.php?get=grid', function(data){
 			$scope.gridModel.data = data;
 			 angular.forEach($scope.gridModel.data, function (row) {
-				 row.image = row.image.parseEscape();
+				 row.image = (row.image) ? row.image.parseEscape() : {};
 			      row.imagePresent = function () {
 						return (Object.keys(row.image).length==0) ? "No" : "Yes";
 			      	};
