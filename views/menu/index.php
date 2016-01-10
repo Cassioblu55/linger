@@ -8,9 +8,8 @@
 <div ng-controller="MenuViewIndexController">
 	<div class="container-fluid">
 		<h4 class="primary-color"><span style="color: white;">*</span> Click to view photo</h4>
-		<!-- drink column -->
 		<div ng-repeat="drink_column in drinks track by $index">
-			<div class="col-md-6" ng-style="($index==1) ?  {'border-left': 'thin solid white', 'padding-left' : '50px'}: {'padding-right' : '50px'}">
+			<div class="col-md-6" id="drinkColumn{{$index}}">
 				<div ng-repeat = "drink_type in getKeys(drink_column)">
 					<h2 class="primary-color text-center italic">{{drink_type}}</h2>
 					<div ng-repeat="drink in drink_column[drink_type]">
@@ -24,7 +23,6 @@
 					</div>
 				</div>
 			</div>
-		<!-- end drink column -->
 		</div>
 	</div>
 	
@@ -56,7 +54,30 @@
 app.controller("MenuViewIndexController", ['$scope', "$controller" , function($scope, $controller){
 	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
 
+	var minWidth = 999;
 
+	function setStyle(large){
+		if(large){
+			$('#drinkColumn1').attr('style', "border-left: thin solid white; padding-left: 50px");
+	        $('#drinkColumn0').attr("style","padding-right: 50px");
+		}else{
+			 $('#drinkColumn0').attr('style', '');
+		     $('#drinkColumn1').attr('style', '');
+		}
+	}
+
+	$(window).load(function(){
+		setStyle($(window).width() > minWidth);
+ 	});
+	
+	
+	$(window).bind("resize",function(){
+		setStyle($(window).width() > minWidth);
+	    });
+
+	// ng-style="($index==1) ?  {'border-left': 'thin solid white', 'padding-left' : '50px'}: {'padding-right' : '50px'}"
+
+	
 	$scope.showImage = function(image, drinkName){
 		$scope.activeImage = image;
 		$scope.activeImage.drinkName = drinkName;
