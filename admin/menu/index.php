@@ -17,25 +17,7 @@
 	
 	</div>
 	
-	<div id="imagePreview" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-		    <div class="modal-content">
-		    	<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-		    		<h3 class=" modal-title text-center">{{activeImage.drinkName}}</h3>
-		        </div>
-		      	<div class="modal-body">
-		      		<div class="row">
-		      			<div class="col-md-1"></div>
-		      			<div class="col-md-10">
-		      				<img width="100%" ng-src="{{activeImage.source}}">
-		      			</div>
-		      			<div class="col-md-1"></div>
-		      		</div>
-		      	</div>
-	      	</div>
-      	</div>
-    </div>
+	<?php include_once $serverPath.'resources/shared/imagePreview.php';?>
 
 </div>
 
@@ -43,7 +25,7 @@
 
 <script>
 app.controller("MenuAdminIndexController", ['$scope', "$controller" , function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
+	angular.extend(this, $controller('ImagePreviewController', {$scope: $scope}));
 
 	$scope.activeImage = {};
 	
@@ -58,20 +40,8 @@ app.controller("MenuAdminIndexController", ['$scope', "$controller" , function($
 	$scope.updateGrid = function(){
 	  	$scope.setFromGet('data.php?get=grid', function(data){
 			$scope.gridModel.data = data;
-			 angular.forEach($scope.gridModel.data, function (row) {
-				 row.image = (row.image) ? row.image.parseEscape() : {};
-			      row.imagePresent = function () {
-						return (Object.keys(row.image).length==0) ? "No" : "Yes";
-			      	};
-			    });
+			$scope.addLink($scope.gridModel.data);
 	  	});
-	}
-
-	$scope.previewImage = function(image, name){
-		$scope.activeImage = image;
-		$scope.activeImage.drinkName = name;
-		$('#imagePreview').modal('show')
-		
 	}
 	
 	$scope.updateGrid();

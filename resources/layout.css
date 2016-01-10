@@ -15,17 +15,26 @@ body, .main_nav{
 	
 }
 
+.colTwoMarign{	
+	border: '1px solid white';
+ 	} 
+
+
 .primary-color{
 	color: #d9ca76;
 }
 
 .imageClick:HOVER{
 	cursor: pointer;
-	text-decoration: underline;
-}
+	font-size: 20px;
+	}
 
 .bold{
 	font-weight: bold;
+}
+
+.verticalLine {
+    border-left: thick solid white;
 }
 
 .italic{

@@ -6,14 +6,24 @@ include_once $serverPath.'resources/templates/head.php';
 ?>
 
 <div ng-controller="PhotoIndex">
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<span ng-repeat ="album in albums">
-				<img class="albumDisplay" title="{{album.name}}" ng-src="{{album.cover_photo.source}}" ng-click="showAlbum(album.id)" height="200px">
-			</span>
-		</div>	
-		<div class="col-md-1"></div>
+	<div class="fluid-container">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-11">
+				<h4>Click to view more Photos</h4>
+			</div>
+		
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<span ng-repeat ="album in albums">
+					<img class="albumDisplay" title="{{album.name}}" ng-src="{{album.cover_photo.source}}" ng-click="showAlbum(album.id)" height="200px">
+				</span>
+			</div>	
+			<div class="col-md-1"></div>
+		</div>
 	</div>
 	
 	<!-- album modal -->

@@ -162,11 +162,14 @@
 				<!-- description ends -->
 				
 				<!-- image -->
-<!-- 				<div class="form-group"> -->
-<!-- 					<label for="image">Image</label> -->
-<!-- 					<input type="file" id='image' name='image' /> -->
-<!-- 				</div> -->
-				<!-- image ends-->
+				<div class="form-group">
+					<button class="btn btn-primary" type="button" ng-click="getImage(eventImage, 'eventImage')">{{!eventImage.source ? 'Get Image' : 'Change Image' }}</button>
+					<button ng-show="eventImage.source" class="btn btn-danger" type="button" ng-click="eventImage={}">Clear Image</button>
+				</div>
+				<div class="form-group">
+					<img ng-show="eventImage.source" style="max-width: 50%" ng-src="{{eventImage.source}}" height="200px"/>
+				</div>
+				<!-- image ends -->
 				
 				<!-- active -->
 				<div class="row form-group">
@@ -194,17 +197,20 @@
 			</div>
 		</div>
 		
+		
 		<input name="dates" class="hidden" ng-model="days_text" type="text">
 		<input name="startDate" class="hidden" ng-model="startDateInMillis" type="text">
 		<input name="endDate" class="hidden" ng-model="endDateInMillis" type="text">
+		<input type="text" ng-model="imageText" class="hidden" name="image" >
 		
+		<?php include_once $serverPath.'resources/shared/imageSelectModal.php';?>
 	</form>
 
 </div>
 
 <script>
 app.controller('AddEditEvent', ['$scope', "$controller" , function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
+	angular.extend(this, $controller('ImageSelectController', {$scope: $scope}));
 
 	$scope.daysOfTheWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 	
@@ -214,6 +220,8 @@ app.controller('AddEditEvent', ['$scope', "$controller" , function($scope, $cont
 	$scope.event.type="recurring";
 	$scope.days =[];
 	$scope.event.active="Yes";
+	$scope.eventImage = {};
+	
 
 	$scope.$watch('event.type', function(val, oldVal){
 		if(oldVal && oldVal != val){
@@ -247,11 +255,18 @@ app.controller('AddEditEvent', ['$scope', "$controller" , function($scope, $cont
 			$scope.endDateInMillis = null;
 		}
 	});
+
+	$scope.$watch('eventImage', function(val){
+		if(val){
+			$scope.imageText = JSON.stringify(val).sanitize();
+		}
+	},true);
 	
 	function setEvent(event){
 		$scope.addOrEdit = "Edit";
 		$scope.saveOrUpdate = "Update";
 		$scope.event = event;
+		$scope.eventImage = (event.image) ? event.image.parseEscape() : {};
 		$scope.days = JSON.parse(event.dates);
 		$scope.event.startDate = ($scope.event.startDate && $scope.event.startDate != 0) ? new Date(Number($scope.event.startDate)) : null;
 		$scope.event.endDate = ($scope.event.endDate && $scope.event.endDate != 0) ? new Date(Number($scope.event.endDate)) : null;
