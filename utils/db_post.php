@@ -14,7 +14,7 @@ function updateFromPost($table){
 function updateWithConstratints($table, $data, $constraints){
 	$update = makeBaseUpdate($table, $data)." ";
 	foreach ($constraints as $columnName => $value){
-		$update .= "WHERE ".$columnName."='".$value."' AND ";
+		$update .= "WHERE ".getColumnQuote($columnName)."='".$value."' AND ";
 	}
 	$update = cutString($update, 4).";";
 	runInsert($update);
@@ -23,7 +23,7 @@ function updateWithConstratints($table, $data, $constraints){
 function makeBaseUpdate($table, $data){
 	$update = "UPDATE " . getTableQuote($table)." SET ";
 	foreach ( $data as $columnName => $value ) {
-		$update .= $columnName."=".getCleanValue($value) . ", ";
+		$update .= getColumnQuote($columnName)."=".getCleanValue($value) . ", ";
 	}
 	return cutString($update, 2);
 }
@@ -60,7 +60,7 @@ function insert($table, $data) {
 }
 
 function runInsert($insert) {
-	//echo $insert;
+	echo $insert;
 	$db = connect ();
 	try {
 		$db->query ($insert );

@@ -50,6 +50,10 @@ function runQuery($query){
 	return $results;
 }
 
+function getColumnQuote($column){
+	return '`'.$column.'`';
+}
+
 
 //will return all column data for a given table
 function getColumns($table){

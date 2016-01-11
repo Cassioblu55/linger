@@ -20,7 +20,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 form-group">
-								<span ng-repeat="photo in carouselPhotos">
+								<span ng-repeat="photo in carouselPhotos | orderBy:'-order'">
 									<img ng-src="{{photo.image.source}}" style="max-width: 100%; padding: 2px" ng-class="(selectedPhoto.image.source == photo.image.source) ? 'selectedImage' : 'selectableImage'" ng-click="setSelected(photo)" height="200px">
 								</span>
 							</div>
@@ -28,6 +28,8 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<button type="button" ng-show="selectedPhoto.image.source != null" ng-click="removeSelectedPhoto()" class="btn btn-danger">Remove Photo</button>
+								<button type="button" ng-show="selectedPhoto.image.source != null" ng-click="moveCarouselImage('up')" class="btn btn-primary">Up</button>
+								<button type="button" ng-show="selectedPhoto.image.source != null" ng-click="moveCarouselImage('down')" class="btn btn-primary">Down</button>
 							</div>
 						</div>
 					</div>
@@ -112,8 +114,9 @@ app.controller("PhotoAdminIndexController", ['$scope', "$controller" , function(
 		$scope.setFromGet("data.php?get=carousel", function(data){
 			angular.forEach(data, function (row) {
 				row.image = row.image.parseEscape();
+				row.order = Number(row.order);
 			});
-			//console.log(data);
+			
 			$scope.carouselPhotos = data;
 			
 		});
@@ -125,6 +128,16 @@ app.controller("PhotoAdminIndexController", ['$scope', "$controller" , function(
 		var post = "delete.php?faceBookID="+value;
 		$scope.runPost(post, {},$scope.updateGrids);
 		
+	}
+
+	$scope.moveCarouselImage = function(upOrDown){
+		var image = clone($scope.selectedPhoto);
+		console.log(image.id);
+		var newOrder = (upOrDown =='up') ? image.order+1 : image.order-1
+		var data = {image: JSON.stringify(image.image).sanitize(), order: newOrder+''};
+		var post = "edit.php?type=carousel_image&id="+image.id;
+		$scope.runPost(post, data, $scope.getCarosuelImages);
+		$scope.selectedPhoto = {};
 	}
 
 	$scope.removeSelectedPhoto = function(){

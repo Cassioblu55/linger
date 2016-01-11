@@ -15,7 +15,7 @@
 				
 				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner" role="listbox">
-					    <div ng-repeat="photo in carouselPhotos track by $index" class="item" ng-class="($index==0) ? 'active' : ''">
+					    <div ng-repeat="photo in carouselPhotos | orderBy:'-order' track by $index" class="item" ng-class="($index==0) ? 'active' : ''">
 					      <img ng-src="{{photo.image.source}}" class="carouselImages">
 					    </div>	  	
 				  </div>
