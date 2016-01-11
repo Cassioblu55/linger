@@ -5,6 +5,16 @@
 	
 }
 
+.selectableImage:HOVER{
+	cursor: pointer;
+	border: thick solid orange;
+}
+
+.selectedImage{
+	border: thick solid red;
+	
+}
+
 .cellImagePreview:HOVER {
 	cursor: pointer;
 	

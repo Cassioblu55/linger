@@ -14,7 +14,7 @@
 		        
 		        <!-- image select -->
 		        <span ng-repeat="photo in modal_photos">
-		        <img height="200px" style="max-width: 100%;" ng-click="image.source = photo.source; image.album = photo.album; setImage(photo, imageVarName);"  ng-style='image.source == photo.source ? selected : ""' ng-src="{{photo.source}}">
+		        <img height="200px" style="max-width: 100%;" ng-click="imageClick(photo)"  ng-style='image.source == photo.source ? selected : ""' ng-src="{{photo.source}}">
 		        </span>
 		        <!-- image select ends -->		        
 		      </div>
@@ -44,13 +44,17 @@ app.controller('ImageSelectController', ['$scope', "$controller", function($scop
 		}
 	},true);
 	
-	$scope.getImage = function(image, name){
-		$scope.imageVarName = name;
+	$scope.getImage = function(funct){
+		$scope.imageClick = funct;
+		$('#imageSelectModal').modal('show');
+	}
+
+	$scope.editImage = function(image, funct){
+		$scope.imageClick = funct;
 		$scope.image = image;
 		if($scope.image.album){
 			$scope.imageSelectActiveAlbumn = $scope.modal_albums.findByProperty($scope.image.album.id);
 		}
-		
 		$('#imageSelectModal').modal('show');
 	}
 

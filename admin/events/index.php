@@ -31,8 +31,7 @@ app.controller("EventIndexController", ['$scope', "$controller" , function($scop
 	angular.extend(this, $controller('ImagePreviewController', {$scope: $scope}));
 	
 	$scope.gridModel = {enableFiltering: true, enableColumnMenus: false, enableColumnResizing: true, showColumnFooter: true , enableSorting: false, showGridFooter: true, enableRowHeaderSelection: false, rowHeight: 42};
-	$scope.gridModel.columnDefs = [	{field: 'show', enableFiltering: false, width: 65, cellTemplate: '<a class="btn btn-info" role="button" ng-href="<?php echo $baseURL;?>views/events/show.php?id={{row.entity.id}}">Show</a>'},
-	                           		{field: 'edit', enableFiltering: false, width: 53, cellTemplate: '<a class="btn btn-primary" role="button" ng-href="edit.php?id={{row.entity.id}}">Edit</a>'},
+	$scope.gridModel.columnDefs = [	{field: 'edit', enableFiltering: false, width: 53, cellTemplate: '<a class="btn btn-primary" role="button" ng-href="edit.php?id={{row.entity.id}}">Edit</a>'},
 	                               	{field: 'name'},{field: 'when'},
 	                               	{field: 'imagePresent()', width: 75, displayName: 'Image', cellTemplate: '<div ng-click="(row.entity.image.source) ? grid.appScope.previewImage(row.entity.image,row.entity.name) : \'\'" class="ui-grid-cell-contents" ng-class="(row.entity.image.source) ? \'cellImagePreview\' : \'\'">{{row.entity.imagePresent()}}</div>'},
 	                           		{field: 'delete', enableFiltering: false, width: 67,  cellTemplate: '<button class="btn btn-danger" ng-click="grid.appScope.deleteById(row.entity.id,row.entity.name, grid.appScope.updateGrid);">Delete</button>'}

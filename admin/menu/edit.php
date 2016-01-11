@@ -23,83 +23,85 @@
 ?>
 
 <div ng-controller="AddEditDrink">
-	<form action="edit.php<?php if(!empty($_GET['id'])){ echo "?id=".$_GET['id'];}?>" enctype="multipart/form-data" method="post">
-		<div class="row">
-			<div class="col-md-6">
-			<!-- panel -->
-			<div class="panel panel-default">
-				<!-- Header -->
-						<div class="panel-heading">
-							<h3 class="panel-title">{{addOrEdit}} {{drink.name || 'Drink'}}</h3>
+	<div class="container-fluid">
+		<form action="edit.php<?php if(!empty($_GET['id'])){ echo "?id=".$_GET['id'];}?>" enctype="multipart/form-data" method="post">
+			<div class="row">
+				<div class="col-md-6">
+				<!-- panel -->
+				<div class="panel panel-default">
+					<!-- Header -->
+							<div class="panel-heading">
+								<h3 class="panel-title">{{addOrEdit}} {{drink.name || 'Drink'}}</h3>
+							</div>
+					<!-- Header ends-->
+					<!-- body -->
+					<div class="panel-body">
+						<!-- name -->
+						<div class="form-group">
+							<label for='name'>Name</label>
+							<input type="text" name="name" class="form-control" ng-model="drink.name" placeholder="Name">
 						</div>
-				<!-- Header ends-->
-				<!-- body -->
-				<div class="panel-body">
-					<!-- name -->
+						<!-- name ends -->
+						
+						<!-- type -->
+						<div class="row form-group">
+							<div class="col-md-6">
+								<label for="type">Type</label>
+								<select class="form-control" required="required" ng-model= "drink.type" name="type" id="type">
+									<option value=''>Select One</option>
+									<option ng-repeat="type in drink_types" ng-selected="drink.type==type">{{type}}</option>
+								</select>
+							</div>
+						</div>
+						<!-- type ends -->
+						
+					<!-- Description -->
 					<div class="form-group">
-						<label for='name'>Name</label>
-						<input type="text" name="name" class="form-control" ng-model="drink.name" placeholder="Name">
+						<label for="description">Description</label>
+						<textarea rows="5" id="description" name="description" placeholder="Description" class="form-control">{{drink.description}}</textarea>
 					</div>
-					<!-- name ends -->
+					<!-- description ends -->
 					
-					<!-- type -->
-					<div class="row form-group">
-						<div class="col-md-6">
-							<label for="type">Type</label>
-							<select class="form-control" required="required" ng-model= "drink.type" name="type" id="type">
-								<option value=''>Select One</option>
-								<option ng-repeat="type in drink_types" ng-selected="drink.type==type">{{type}}</option>
-							</select>
+					<!-- price -->
+					<div class="form-group">
+						<label for="price">Price</label>
+						<div class="input-group">
+	  						<span class="input-group-addon">$</span>
+							<input type="number" id="price" class="form-control" placeholder="Price" ng-model="drink.price" name="price">
 						</div>
 					</div>
-					<!-- type ends -->
 					
-				<!-- Description -->
-				<div class="form-group">
-					<label for="description">Description</label>
-					<textarea rows="5" id="description" name="description" placeholder="Description" class="form-control">{{drink.description}}</textarea>
-				</div>
-				<!-- description ends -->
-				
-				<!-- price -->
-				<div class="form-group">
-					<label for="price">Price</label>
-					<div class="input-group">
-  						<span class="input-group-addon">$</span>
-						<input type="number" id="price" class="form-control" placeholder="Price" ng-model="drink.price" name="price">
+					<!-- image -->
+					<div class="form-group">
+						<button class="btn btn-primary" type="button" ng-click="editImage(menuImage, setMenuImage)">{{!menuImage.source ? 'Get Image' : 'Change Image' }}</button>
+						<button ng-show="menuImage.source" class="btn btn-danger" type="button" ng-click="menuImage={}">Clear Image</button>
 					</div>
+					<div class="form-group">
+						<img ng-show="menuImage.source" class="selectableImage" ng-click="editImage(menuImage, setMenuImage)" style="max-width: 100%" ng-src="{{menuImage.source}}" height="200px"/>
+					</div>
+					<!-- image ends -->
+					
+					<!-- price ends -->
+					<!--  panel body ends -->
+					</div>
+					</div>
+					<!-- panel-footer -->
+					<div class="panel-footer">
+						<button class="btn btn-primary" type="submit">{{saveOrUpdate}}</button>
+						<a href="index.php" class="btn btn-danger">Cancel</a>
+					</div>
+					<!-- panel-footer ends -->
+					
+					<!-- panel ends -->
 				</div>
-				
-				<!-- image -->
-				<div class="form-group">
-					<button class="btn btn-primary" type="button" ng-click="getImage(menuImage, 'menuImage')">{{!menuImage.source ? 'Get Image' : 'Change Image' }}</button>
-					<button ng-show="menuImage.source" class="btn btn-danger" type="button" ng-click="menuImage={}">Clear Image</button>
-				</div>
-				<div class="form-group">
-					<img ng-show="menuImage.source" style="max-width: 100%" ng-src="{{menuImage.source}}" height="200px"/>
-				</div>
-				<!-- image ends -->
-				
-				<!-- price ends -->
-				<!--  panel body ends -->
-				</div>
-				</div>
-				<!-- panel-footer -->
-				<div class="panel-footer">
-					<button class="btn btn-primary" type="submit">{{saveOrUpdate}}</button>
-					<a href="index.php" class="btn btn-danger">Cancel</a>
-				</div>
-				<!-- panel-footer ends -->
-				
-				<!-- panel ends -->
 			</div>
-		</div>
+				
+			<input type="text" ng-model="imageText" class="" name="image" >		
 			
-		<input type="text" ng-model="imageText" class="hidden" name="image" >		
-		
-	</form>
-
-	<?php include_once $serverPath.'resources/shared/imageSelectModal.php';?>
+		</form>
+	
+		<?php include_once $serverPath.'resources/shared/imageSelectModal.php';?>
+	</div>
 
 </div>
 
@@ -113,6 +115,11 @@ app.controller('AddEditDrink', ['$scope', "$controller" , function($scope, $cont
 	$scope.drink_types = ['Vodka','Cognac','Tequila','Rum','Gin','Whiskey','Beer','Wine','Sparkling Wines','Mocktails','Other Beverages'];
 
 	$scope.menuImage = {};
+
+	$scope.setMenuImage = function(image){
+		$scope.menuImage = image;
+		$('#imageSelectModal').modal('hide');
+	}
 	
 	$scope.setById(function(drink){
 		$scope.addOrEdit = "Edit";

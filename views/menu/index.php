@@ -11,7 +11,7 @@
 		<div ng-repeat="drink_column in drinks track by $index">
 			<div class="col-md-6" id="drinkColumn{{$index}}">
 				<div ng-repeat = "drink_type in getKeys(drink_column)">
-					<h2 class="primary-color text-center italic">{{drink_type}}</h2>
+					<h2 class="text-center italic">{{drink_type}}</h2>
 					<div ng-repeat="drink in drink_column[drink_type]">
 						<div class="row">
 							<h4 class="primary-color" ng-click="(drink.image.source) ? showImage(drink.image, drink.name) : ''" ng-class="(drink.image.source) ? 'imageClick' : ''"><span style="color: white;" ng-show="drink.image.source">* </span>{{drink.name}}</h4>

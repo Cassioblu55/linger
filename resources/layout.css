@@ -10,6 +10,16 @@ body, .main_nav{
 	border: 0px; 
 }
 
+.carouselImages{
+	text-align:center;
+	min-height: 400px;
+	max-height: 400px;
+	max-width: 100%;
+	margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
+
 .underline{
 	text-decoration: underline;
 	

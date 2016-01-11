@@ -5,20 +5,20 @@
 ?>
 
 <div ng-controller="MenuAdminIndexController">
-	
-	<div class="panel panel-default">
-		<div class="panel-heading clearfix">
-			<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Menu Items</h4>
-			<a href="edit.php" class="btn btn-primary pull-right">Add</a>
+	<div class="container-fluid">
+		<div class="panel panel-default">
+			<div class="panel-heading clearfix">
+				<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Menu Items</h4>
+				<a href="edit.php" class="btn btn-primary pull-right">Add</a>
+			</div>
+			<div class="panel-body">
+				<div ui-grid="gridModel" external-scopes="$scope" style="height: 400px;"></div>
+			</div>
+		
 		</div>
-		<div class="panel-body">
-			<div ui-grid="gridModel" external-scopes="$scope" style="height: 400px;"></div>
-		</div>
-	
+		
+		<?php include_once $serverPath.'resources/shared/imagePreview.php';?>
 	</div>
-	
-	<?php include_once $serverPath.'resources/shared/imagePreview.php';?>
-
 </div>
 
 

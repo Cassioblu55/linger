@@ -30,7 +30,7 @@ String.prototype.sanitize = function(){
     			.replace(/\t/g, "\\t")
     			.replace(/\f/g, "\\f")
     			.replace(/"/g,"\\\"")
-    			.replace(/'/g,"\\\'")
+    			.replace(/'/g,"\'")
     			.replace(/\&/g, "\\&"); 
 }
 
