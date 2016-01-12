@@ -37,11 +37,15 @@ include_once $serverPath.'resources/templates/head.php';
 		      <div class="modal-body">
       			<table style="width: 100%;">
       			<tr>
-      				<td class="photoNav noselect" ng-click="photoBack()"><</td>
+      				<td class="photoNav noselect" ng-click="photoBack()">
+      					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span></td>
       				<td>
 						<img id="activePhoto" width="100%" ng-src="{{activePhoto.source}}">
       				</td>
-      				<td class="photoNav noselect" ng-click="photoForward()">></td>
+      				<td class="photoNav noselect" ng-click="photoForward()">
+      				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					    <span class="sr-only">Next</span></td>
       			</tr>
       			</table>
       		</div>
@@ -129,3 +133,5 @@ app.controller('PhotoIndex', ['$scope', "$controller" , function($scope, $contro
 	
 }]);
 </script>
+
+<?php include_once $serverPath.'resources/templates/footer.php'; ?>

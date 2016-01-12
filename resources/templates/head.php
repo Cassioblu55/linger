@@ -25,6 +25,9 @@ var baseURL = "<?php echo $baseURL;?>";
 
 <script src="//connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript">
+
+var baseURL = '<?php echo $baseURL;?>';
+
 app.controller("TitleController", ['$scope', "$controller", function($scope, $controller){
 	angular.extend(this, $controller('UtilsController', {$scope: $scope}));	
 

@@ -10,6 +10,27 @@ body, .main_nav{
 	border: 0px; 
 }
 
+.link{
+	list-style-type: none;
+	color: white;
+	padding: 0px;
+}
+
+.link:HOVER{
+	cursor: pointer;
+	font-weight: bold;
+	color: white;
+	text-decoration: none; 
+}
+
+.hideOverFlowWithEllipis{
+	text-overflow: ellipsis; 
+	width: 100%; 
+	overflow:hidden;
+	height: 100%;
+}
+
+
 .carouselImages{
 	text-align:center;
 	min-height: 400px;
@@ -19,6 +40,17 @@ body, .main_nav{
     margin-right: auto;
     display:block;
 }
+
+.mainPageEventImages{
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+    margin-right: auto;
+    display:block;
+    max-width: 100%; 
+    max-height: 100%
+}
+
 
 .underline{
 	text-decoration: underline;
@@ -31,6 +63,10 @@ body, .main_nav{
 
 
 .primary-color{
+	color: #d9ca76;
+}
+
+.primary-color-on-hover:HOVER{
 	color: #d9ca76;
 }
 
@@ -99,7 +135,7 @@ body, .main_nav{
 
 td.photoNav{
 	width: 50px;
-	font-size: 100px;
+	font-size: 50px;
 	text-align: center;
 	font-family: Georgia;
 }

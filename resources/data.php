@@ -9,6 +9,12 @@
 			$table ='carousel_images';
 			echo json_encode(getAllData($table));
 		}
+		
+		if($get=='events'){
+			$table = 'events';
+			echo json_encode(getAllData($table));
+		}
+		
 	}
 	
 ?>

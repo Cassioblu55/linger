@@ -7,18 +7,22 @@
 
 <div ng-controller="MenuViewIndexController">
 	<div class="container-fluid">
-		<h4 class="primary-color"><span style="color: white;">*</span> Click to view photo</h4>
-		<div ng-repeat="drink_column in drinks track by $index">
-			<div class="col-md-6" id="drinkColumn{{$index}}">
-				<div ng-repeat = "drink_type in getKeys(drink_column)">
-					<h2 class="text-center italic">{{drink_type}}</h2>
-					<div ng-repeat="drink in drink_column[drink_type]">
-						<div class="row">
-							<h4 class="primary-color" ng-click="(drink.image.source) ? showImage(drink.image, drink.name) : ''" ng-class="(drink.image.source) ? 'imageClick' : ''"><span style="color: white;" ng-show="drink.image.source">* </span>{{drink.name}}</h4>
-						</div>
-						<div class="row">
-							<p class="showDisplay" ng-class="(drink.price != 0) ? 'col-sm-11' : ''">{{drink.description}}</p>
-							<div ng-show="drink.price != 0" class="col-sm-1 bold">${{drink.price}}</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<h4 class="primary-color"><span style="color: white;">*</span> Click to view photo</h4>
+				<div ng-repeat="drink_column in drinks track by $index">
+					<div class="col-md-6" id="drinkColumn{{$index}}">
+						<div ng-repeat = "drink_type in getKeys(drink_column)">
+							<h2 class="text-center italic">{{drink_type}}</h2>
+							<div ng-repeat="drink in drink_column[drink_type]">
+								<div class="row">
+									<h4 class="primary-color" ng-click="(drink.image.source) ? showImage(drink.image, drink.name) : ''" ng-class="(drink.image.source) ? 'imageClick' : ''"><span style="color: white;" ng-show="drink.image.source">* </span>{{drink.name}}</h4>
+								</div>
+								<div class="row">
+									<p class="showDisplay" ng-class="(drink.price != 0) ? 'col-sm-11' : ''">{{drink.description}}</p>
+									<div ng-show="drink.price != 0" class="col-sm-1 bold">${{drink.price}}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -120,3 +124,5 @@ app.controller("MenuViewIndexController", ['$scope', "$controller" , function($s
 
 }]);
 </script>
+
+<?php include_once $serverPath.'resources/templates/footer.php'; ?>

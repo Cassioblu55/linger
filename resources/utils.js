@@ -53,6 +53,14 @@ String.prototype.display = function(){
 	 return this.replace(new RegExp( "\n", "g" ), "<br />")
 }
 
+function getDisplayFromMilitaryString(time){
+	var n = Number(time.split(":")[0]);
+	var amPm = (n < 12) ? 'am' : "pm";
+	var nRight = (n > 12) ? n-12 : n;
+	return nRight+":"+time.split(":")[1]+amPm;
+	
+}
+
 function clone(h){
 	var hash = {};
 	if(h){
