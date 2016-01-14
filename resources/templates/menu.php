@@ -19,8 +19,17 @@
 				<li><a class="menu_link">Location</a></li>
 				<li><a class="menu_link">Contact</a></li>
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/photos/">Photos</a></li>
+				
 			</ul>
 		</div>	
 	</div>
 </nav>
 <hr class="title_line">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="fb-like" data-href="https://www.facebook.com/thelingermartinibar/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+		</div>
+	</div>
+</div>
+

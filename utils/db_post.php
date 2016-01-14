@@ -60,7 +60,7 @@ function insert($table, $data) {
 }
 
 function runInsert($insert) {
-	echo $insert;
+	//echo $insert;
 	$db = connect ();
 	try {
 		$db->query ($insert );
