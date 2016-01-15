@@ -1,8 +1,5 @@
 <?php session_start();
 	include_once '../../config/config.php';
-	$stopFirewall = true;
-	
-	include_once $serverPath.'resources/templates/header.php';
 	include_once $serverPath.'utils/db_get.php';
 	
 	$login_ok = false;
@@ -45,6 +42,7 @@
 		}
 	}
 	
+	include_once $serverPath.'resources/templates/header.php';
 	
 ?>
 
