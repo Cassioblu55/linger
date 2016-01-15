@@ -1,4 +1,7 @@
-<?php $defaultTitle="The Linger"?>
+
+<?php
+session_start();
+$defaultTitle="The Linger"?>
 <!doctype html>
 <html ng-app="app">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />

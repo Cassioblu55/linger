@@ -5,4 +5,4 @@ include_once $serverPath.'resources/templates/adminHead.php';
 
 ?>
 
-<div>This is the admin page.</div>
+<div class="container-fluid">This is the admin page.</div>

@@ -84,6 +84,17 @@ function getColumnNamesWithTable($table){
 	return $columns;
 }
 
+
+// function dieOnMissingRequired($array){
+// 	foreach ($array as $key){
+// 		$name = ($array[$key] || $key);
+// 		if(empty($_POST[$key])){
+// 			die("Please enter $name");
+// 		}
+// 	}
+	
+// }
+
 function getRequiredColumns($table){
 	$result = getColumns($table);
 	$columns = [];
