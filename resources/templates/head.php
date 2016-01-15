@@ -1,11 +1,12 @@
 
 <?php
-session_start();
+include_once $serverPath.'resources/shared/session.php';
 $defaultTitle="The Linger"?>
 <!doctype html>
 <html ng-app="app">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <script type="text/javascript">var baseURL = "<?php echo $baseURL;?>";</script>
+
 <?php include_once $serverPath.'resources/templates/header.php';?>
 <link rel="stylesheet" href="<?php echo $baseURL;?>resources/layout.css"/>	
 <title><?php if(isset($title)){echo $title;}else{echo $defaultTitle;}?></title>
