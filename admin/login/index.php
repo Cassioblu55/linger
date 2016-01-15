@@ -1,8 +1,8 @@
-<?php
+<?php session_start();
 	include_once '../../config/config.php';
 	$stopFirewall = true;
 	
-	include_once $serverPath.'resources/templates/adminHead.php';
+	include_once $serverPath.'resources/templates/header.php';
 	include_once $serverPath.'utils/db_get.php';
 	
 	$login_ok = false;
@@ -52,7 +52,7 @@
 	<div class="container-fluid">
 		<form action="index.php?username=<?php if(isset($_GET['username'])){echo $_GET['username'];}?>" method="post">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6 col-md-offset-3" style="margin-top: 20px">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="panel-title">Login</div>
