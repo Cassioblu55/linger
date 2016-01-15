@@ -9,8 +9,11 @@
 	if(!empty($_POST)){
 		if(!empty($_POST['username']) && !empty($_POST['password'])){
 			$table = "users";
-			$query = "SELECT * FROM ".getTableQuote($table)." WHERE username='".$_POST['username']."' OR email='".$_POST['username']."';";
-			$user = runQuery($query)[0];
+			$query = "SELECT * FROM ".getTableQuote($table)." WHERE (username='".$_POST['username']."' OR email='".$_POST['username']."') AND active=1;";
+			$user = runQuery($query);
+			if(count($user) == 1){
+				$user = $user[0];
+			}
 			if(isset($user['salt']) && isset($user['password']) && isset($user['username']) ){
 				$check_password = hash ( 'sha256', $_POST ['password'] . $user['salt'] );
 				for($round = 0; $round < 65536; $round ++) {
