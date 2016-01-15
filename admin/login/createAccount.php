@@ -1,6 +1,5 @@
 <?php
 include_once '../../config/config.php';
-include_once $serverPath.'resources/templates/adminHead.php';
 include_once $serverPath.'utils/db_post.php';
 include_once $serverPath.'utils/db_get.php';
 
@@ -64,6 +63,7 @@ if(!empty($_POST)){
 	}
 	
 }
+include_once $serverPath.'resources/templates/adminHead.php';
 
 
 ?>
