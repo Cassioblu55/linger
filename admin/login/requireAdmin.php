@@ -1,5 +1,4 @@
-<?php
-include_once $serverPath.'resources/shared/session.php';
+<?php session_start();
 
 if(empty($_SESSION['user']) && !isset($stopFirewall)){
 	// If they are not, we redirect them to the login page.

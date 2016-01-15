@@ -1,6 +1,5 @@
+<?php session_start();
 
-<?php
-include_once $serverPath.'resources/shared/session.php';
 $defaultTitle="The Linger"?>
 <!doctype html>
 <html ng-app="app">
