@@ -35,9 +35,24 @@ if(!empty($_POST)){
 			];
 			insert($table, $data);
 			
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+			$headers .= 'From:'.$webmasterMail.' <'.$webmasterMail.'>' . "\r\n";
+			
+			$message = "
+			<html>
+			<body>
+			<p>Your account has been created but it needs to be approved before you will be able to make chnages to the website.</p>
+			
+			</body>
+			
+			</html>
+			";
+			
+			$subject = "Your account has been created for The Linger Martini Bar";
+			mail($_POST['email'], $subject, $message, $headers);
+			
 			header("Location: ". $baseURL."admin/login/index.php?email=$username");
-			
-			
 			
 		}else{
 			die("Username or email already in use");
