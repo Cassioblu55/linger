@@ -16,7 +16,7 @@ if(!empty($_POST)){
 	
 	if(!empty($email) && !empty($username) && !empty($password)){
 		$query = "SELECT username FROM ".getTableQuote($table)." WHERE username='$username' OR email='$email';";
-		if(empty(runQuery($query))){
+		if(count(runQuery($query)) == 0){
 			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){die("Invalid E-Mail Address");}
 			
 			$salt = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647));
