@@ -20,6 +20,7 @@
 					<h4 class="italic">Links</h4>
 					<ul style="padding: 0px;">
 						<li class="link"><a class="link primary-color-on-hover" href="https://www.facebook.com/thelingermartinibar/timeline">Facebook</a></li>
+						<li class="link"><a class="link primary-color-on-hover" href="https://www.instagram.com/linger_martini_bar/">Instagram</a></li>
 						<li class="link"><a class="link primary-color-on-hover" href="<?php echo $baseURL;?>admin/">Admin</a></li>
 					</ul>
 				</div>

@@ -29,6 +29,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="fb-like" data-href="https://www.facebook.com/thelingermartinibar/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+			<span class="ig-follow" data-id="30b5104842" data-handle="linger_martini_bar" data-count="true" data-size="small" data-username="true"></span>
 		</div>
 	</div>
 </div>
