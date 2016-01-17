@@ -18,7 +18,6 @@ body, .main_nav{
 
 .link:HOVER{
 	cursor: pointer;
-	font-weight: bold;
 	color: white;
 	text-decoration: none; 
 }
@@ -52,7 +51,7 @@ body, .main_nav{
 }
 
 
-.underline{
+.underline, .underline:HOVER{
 	text-decoration: underline;
 	
 }

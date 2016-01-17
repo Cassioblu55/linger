@@ -16,8 +16,7 @@
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/events/">Events</a></li>
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/menu/">Menu</a></li>
 				<li><a class="menu_link">Book A Party</a></li>
-				<li><a class="menu_link">Location</a></li>
-				<li><a class="menu_link">Contact</a></li>
+				<li><a class="menu_link" href="<?php echo $baseURL;?>views/location/">Location</a></li>
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/photos/">Photos</a></li>
 				
 			</ul>
@@ -27,7 +26,7 @@
 <hr class="title_line">
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12" style="margin-bottom: 10px">
 			<div class="fb-like" data-href="https://www.facebook.com/thelingermartinibar/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
 			<span class="ig-follow" data-id="30b5104842" data-handle="linger_martini_bar" data-count="true" data-size="small" data-username="true"></span>
 		</div>

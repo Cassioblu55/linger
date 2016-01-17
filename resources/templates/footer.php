@@ -12,16 +12,18 @@
 				<div class="col-md-4">
 					<h4 class="italic">Contact Us</h4>
 					<ul style="padding: 0px;">
-						<li class="link"><a class="link primary-color-on-hover" ng-href="tel: {{getPhoneCall(phoneNumber)}}">Call: {{phoneNumber}}</a></li>
+						<li class="link"><a class="link primary-color-on-hover" href="http://maps.apple.com/?q=4142 167th St Oak Forest, Illinois">Visit: <span class="underline">4142 167th St Oak Forest, Illinois</span></a>
+						<li class="link"><a class="link primary-color-on-hover" ng-href="tel: {{getPhoneCall(phoneNumber)}}">Call: <span class="underline">{{phoneNumber}}</span></a></li>
+						<li class="link"><a class="link primary-color-on-hover" href="mailto:<?php echo $contactMail;?>">Email Us: <span class="underline"><?php echo $contactMail;?></span></a>
 					</ul>
 					
 				</div>
 				<div class="col-md-4">
 					<h4 class="italic">Links</h4>
 					<ul style="padding: 0px;">
-						<li class="link"><a class="link primary-color-on-hover" href="https://www.facebook.com/thelingermartinibar/timeline">Facebook</a></li>
-						<li class="link"><a class="link primary-color-on-hover" href="https://www.instagram.com/linger_martini_bar/">Instagram</a></li>
-						<li class="link"><a class="link primary-color-on-hover" href="<?php echo $baseURL;?>admin/">Admin</a></li>
+						<li class="link"><a class="link primary-color-on-hover underline" href="https://www.facebook.com/thelingermartinibar/timeline">Facebook</a></li>
+						<li class="link"><a class="link primary-color-on-hover underline" href="https://www.instagram.com/linger_martini_bar/">Instagram</a></li>
+						<li class="link"><a class="link primary-color-on-hover underline" href="<?php echo $baseURL;?>admin/">Admin</a></li>
 					</ul>
 				</div>
 				

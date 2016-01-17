@@ -8,12 +8,13 @@
 	
 	$baseURL = "webPath";
 	$serverURL = "serverPath";
-	$externalLink = ""
+	$externalLink = "";
 	
 	$secret = 'xxxxxexamplexxxxxx';
 	
 	$adminMail = '';
 	$webmasterMail = '';
+	$contactMail="";
 	
 	
 ?>
