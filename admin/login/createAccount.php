@@ -3,6 +3,7 @@ include_once '../../config/config.php';
 include_once $serverPath.'utils/db_post.php';
 include_once $serverPath.'utils/db_get.php';
 
+$stopFirewall = 'true';
 $table = 'users';
 if(empty($_GET['inviteKey'])){
 	header("Location: ". $baseURL);
