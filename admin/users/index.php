@@ -31,8 +31,8 @@ app.controller("UserIndexController", ['$scope', "$controller" , function($scope
 	
 	$scope.gridModel = {enableFiltering: true, enableColumnMenus: false, enableColumnResizing: true, showColumnFooter: true , enableSorting: false, showGridFooter: true, enableRowHeaderSelection: false, rowHeight: 42};
 	$scope.gridModel.columnDefs = [	{field: 'username'},{field: 'email'},{field: 'active_display', name: 'Active'},
-	                               	{field: 'activate', width: 95, enableFiltering: false, cellTemplate: '<div class="btn" ng-class="(row.entity.active == 1) ? \'btn-info\' : \'btn-primary\'" ng-click="grid.appScope.activate(row.entity)">{{(row.entity.active==1) ? "Deactivate" : "Activate"}}</div>' },
-	                           		{field: 'Delete', enableFiltering: false, width: 67,  cellTemplate: '<button class="btn btn-danger" ng-click="grid.appScope.deleteById(row.entity.id,row.entity.username, grid.appScope.updateGrid);">Delete</button>'}
+	                               	{field: 'activate', width: 95, enableFiltering: false, cellTemplate: '<button class="btn center-block cellButton" ng-disabled="grid.appScope.me.id == row.entity.id" ng-class="(row.entity.active == 1) ? \'btn-info\' : \'btn-primary\'" ng-click="grid.appScope.activate(row.entity)">{{(row.entity.active==1) ? "Deactivate" : "Activate"}}</button>' },
+	                           		{field: 'Delete', enableFiltering: false, width: 67,  cellTemplate: '<button class="btn btn-danger center-block cellButton" ng-disabled="grid.appScope.me.id == row.entity.id" ng-click="grid.appScope.deleteById(row.entity.id,row.entity.username, grid.appScope.updateGrid);">Delete</button>'}
 	                           	];
 
 	$scope.updateGrid = function(d){
@@ -43,6 +43,10 @@ app.controller("UserIndexController", ['$scope', "$controller" , function($scope
 			});
 		});
 	}
+
+	$scope.setFromGet("<?php echo $baseURL;?>admin/login/myData.php", function(data){
+		$scope.me = (data[0]) ? data[0] : {};
+	});
 
 	$scope.activate = function(user){
 		if(window.confirm("Are you sure you want to "+((user.active == 1) ? 'deactivate ' : 'activate ' )+user.username+"?")){

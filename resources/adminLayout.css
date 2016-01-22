@@ -5,6 +5,24 @@
 	
 }
 
+.cellButton{
+	width: 95%;
+	height: 95%;
+}
+
+.error-box{
+	background: rgb(255, 0, 0); /* Fall-back for browsers that don't
+                                    support rgba */
+    background: rgba(255, 0, 0, .5);
+	margin-top: 5px 
+}
+
+.error-text{
+	color: black;
+	margin: 5px;
+	opacity: 1;
+}
+
 .selectableImage:HOVER{
 	cursor: pointer;
 	border: thick solid orange;

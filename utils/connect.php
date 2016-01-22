@@ -9,6 +9,17 @@ function connect() {
 	return connectSpecific ( $dbHost, $dbUser, $dbPassword, $dbName);
 }
 
+function sendErrorMessage($message){
+	echo '<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 error-box ">
+					<div class="error-text text-center">'.$message.'</div>
+				</div>
+			</div>	
+		 </div>
+	';
+}
+
 function connectSpecific($dbHost, $dbUser, $dbPassword, $dbName) {
 	try {
 		$db = new mysqli($dbHost, $dbUser, $dbPassword, $dbName);

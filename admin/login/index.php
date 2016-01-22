@@ -32,11 +32,11 @@
 					
 				}
 				else{
-					echo "Username not found or password is incorrect";
+					sendErrorMessage("Username not found or password is incorrect");
 				}
 			
 			}else{
-				echo "Username not found or password is incorrect";
+				sendErrorMessage("Username not found or password is incorrect");
 			}
 			
 		}
@@ -45,44 +45,32 @@
 	include_once $serverPath.'resources/templates/header.php';
 	
 ?>
-
-<div ng-controller="CreateAccountController">
-	<div class="container-fluid">
-		<form action="index.php?username=<?php if(isset($_GET['username'])){echo $_GET['username'];}?>" method="post">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3" style="margin-top: 20px">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="panel-title">Login</div>
+<link rel="stylesheet" href="<?php echo $baseURL;?>resources/adminLayout.css"/>	
+<div class="container-fluid">
+	<form action="index.php" method="post">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3" style="margin-top: 20px">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-title">Login</div>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="username">Username Or Email</label>
+							<input class="form-control" id='username' pattern="[a-zA-Z0-9_@.]+" title="Must be a vaild username" type="text" name='username' ng-model='username' required="required" placeholder="Username">
 						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<label for="username">Username Or Email</label>
-								<input class="form-control" id='username' pattern=".{3,}" title="3 characters minimum" type="text" name='username' ng-model='username' required="required" placeholder="Username">
-							</div>
-							<div class="form-group">
-								<label for="password">Password</label>
-								<input class="form-control" id='password' type="password" name='password' ng-model='password' required="required" placeholder="Password">
-							</div>
-							<div class="form-group">
-								<button class="btn btn-primary" type="submit">Login</button>
-								<a class="btn btn-danger" href="<?php echo $baseURL;?>">Cancel</a>
-							</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input class="form-control" id='password' type="password" name='password' ng-model='password' required="required" placeholder="Password">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary" type="submit">Login</button>
+							<a class="btn btn-danger" href="<?php echo $baseURL;?>">Cancel</a>
 						</div>
 					</div>
 				</div>
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
 </div>
 
-<script>
-app.controller('CreateAccountController', ['$scope', "$controller" , function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
-
-	$scope.username = getUrlParam('username');
-		
-	
-}]);
-
-</script>

@@ -9,8 +9,9 @@ if(!empty($_GET['get'])){
 	$get = $_GET['get'];
 	
 	if($get =='grid'){
-		$columns = ['username', 'email', 'active'];
-		echo json_encode(getSpecificData($table, $columns));
+		$query = "SELECT id, username, email, active FROM ".getTableQuote($table)." WHERE protected != 1;";
+		
+		echo json_encode(runQuery($query));
 	}
 }
 

@@ -8,23 +8,22 @@ $table = 'users';
 if(empty($_GET['inviteKey'])){
 	header("Location: ". $baseURL);
 }
-$table = 'invitations';
-$users = runQuery("SELECT email FROM ".getTableQuote($table)." WHERE inviteKey='".$_GET['inviteKey']."';");
+$users = runQuery("SELECT email FROM ".getTableQuote('invitations')." WHERE inviteKey='".$_GET['inviteKey']."';");
 if(count($users) > 0){
 	$email = $users[0]['email'];
 }else{
 	header("Location: ". $baseURL);
 }
 
-
 if(!empty($_POST)){
+	echo $email;
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	
 	if(!empty($email) && !empty($username) && !empty($password)){
-		$query = "SELECT username FROM ".getTableQuote($table)." WHERE username='$username' OR email='$email';";
+		$query = "SELECT username FROM ".getTableQuote($table)." WHERE `username`='$username' OR `email`='$email';";
 		if(count(runQuery($query)) == 0){
-			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){die("Invalid E-Mail Address");}
+			if(!filter_var($email, FILTER_VALIDATE_EMAIL)){die("Invalid E-Mail Address");}
 			
 			$salt = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647));
 			$password = hash('sha256', $_POST['password'] . $salt);
@@ -49,7 +48,9 @@ if(!empty($_POST)){
 			$message = "
 			<html>
 			<body>
-			<p>Your account has been created but it needs to be approved before you will be able to make chnages to the website.</p>
+			<p>Your account has been created for the Linger Martini Bar.</p>
+					
+			<p>Username: $username</p>
 			
 			</body>
 			
@@ -57,9 +58,9 @@ if(!empty($_POST)){
 			";
 			
 			$subject = "Your account has been created for The Linger Martini Bar";
-			mail($_POST['email'], $subject, $message, $headers);
+			mail($email, $subject, $message, $headers);
 			
-			header("Location: ". $baseURL."admin/login/index.php?email=$username");
+			header("Location: ". $baseURL."admin/login/index.php");
 			
 		}else{
 			die("Username or email already in use");
@@ -78,7 +79,7 @@ include_once $serverPath.'resources/templates/adminHead.php';
 
 <div ng-controller="CreateAccountController">
 	<div class="container-fluid">
-		<form action="createAccount.php?email=<?php echo $_GET['email'];?>&secret=<?php echo $_GET['secret'];?>" method="post">
+		<form action="createAccount.php?inviteKey=<?php echo $_GET['inviteKey'];?>" method="post">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="panel panel-default">
