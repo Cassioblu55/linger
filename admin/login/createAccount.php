@@ -4,12 +4,19 @@ include_once $serverPath.'utils/db_post.php';
 include_once $serverPath.'utils/db_get.php';
 
 $table = 'users';
-if(empty($_GET['secret']) || $_GET['secret'] != $secret || empty($_GET['email'])){
+if(empty($_GET['inviteKey'])){
+	header("Location: ". $baseURL);
+}
+$table = 'invitations';
+$users = runQuery("SELECT email FROM ".getTableQuote($table)." WHERE inviteKey='".$_GET['inviteKey']."';");
+if(count($users) > 0){
+	$email = $users[0]['email'];
+}else{
 	header("Location: ". $baseURL);
 }
 
+
 if(!empty($_POST)){
-	$email = $_POST['email'];
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	
@@ -79,12 +86,12 @@ include_once $serverPath.'resources/templates/adminHead.php';
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<label for="username">Username</label>
-								<input class="form-control" id='username' pattern=".{3,}" title="3 characters minimum" type="text" name='username' ng-model='username' required="required" placeholder="Username">
+								<label for="email">Email</label>
+								<p><?php echo $email;?></p>
 							</div>
 							<div class="form-group">
-								<label for="email">Email</label>
-								<input class="form-control" id='email' type="email" name='email' ng-model='email' required="required" placeholder="Email">
+								<label for="username">Username</label>
+								<input class="form-control" id='username' pattern=".{3,}" title="3 characters minimum" type="text" name='username' ng-model='username' required="required" placeholder="Username">
 							</div>
 							<div class="form-group">
 								<label for="password">Password</label>

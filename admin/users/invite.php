@@ -1,15 +1,26 @@
 <?php
 	include_once '../../config/config.php';
 	include_once $serverPath.'resources/templates/adminHead.php';
+	include_once $serverPath.'utils/db_post.php';
 	
 	if(!empty($_POST) && !empty($_POST['email'])){
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 		$headers .= 'From:'.$webmasterMail.' <'.$webmasterMail.'>' . "\r\n";
 		
+		$table = "invitations";
+		$users = runQuery("SELECT inviteKey FROM ".getTableQuote($table)." WHERE email='".$_POST['email']."';");
+		if(count($users) == 1){
+			$inviteKey = $users[0]['inviteKey'];
+		}else{
+			$inviteKey = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647)). dechex(mt_rand(0, 2147483647));
+			$table = 'invitations';
+			$data = [email => $_POST['email'], inviteKey => $inviteKey];
+			insert($table, $data);
+		}
 		
 		
-		$link = $externalLink."admin/login/createAccount.php?email=".$_POST['email']."&secret=$secret";
+		$link = $externalLink."admin/login/createAccount.php?inviteKey=$inviteKey";
 		$message = "
 				<html>
 					<body>
@@ -23,6 +34,11 @@
 		
 		$subject = "You have been invited to create an account for: The Linger Martini Bar";
 		mail($_POST['email'], $subject, $message, $headers);
+		
+		header("Location: ". $baseURL."admin/users/");
+		
+		die("Redirecting to users");
+		
 	}
 	
 ?>
