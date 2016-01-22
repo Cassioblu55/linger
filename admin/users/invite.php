@@ -1,6 +1,5 @@
 <?php
 	include_once '../../config/config.php';
-	include_once $serverPath.'resources/templates/adminHead.php';
 	include_once $serverPath.'utils/db_post.php';
 	
 	if(!empty($_POST) && !empty($_POST['email'])){
@@ -40,6 +39,9 @@
 		die("Redirecting to users");
 		
 	}
+	
+	include_once $serverPath.'resources/templates/adminHead.php';
+	
 	
 ?>
 
