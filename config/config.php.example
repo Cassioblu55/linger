@@ -1,20 +1,21 @@
 <?php
-	$dbUser = "database user";
-	$dbPassword = "database password";
-	$dbName = "dbName";
+	$dbUser = "username";
+	$dbPassword = "password";
+	$dbName = "name";
 	$dbHost = "host";
-	$adminEmail = "adminEmail";
-	$baseURL = "baseUrl";
+	$adminEmail = "email@email.com";
+	$baseURL = "/baseUrl/";
 	
-	$baseURL = "webPath";
-	$serverURL = "serverPath";
-	$externalLink = "";
+	$serverPath = "/server/path/";
 	
-	$secret = 'xxxxxexamplexxxxxx';
+	$externalLink = "http://externalPath.com";
 	
-	$adminMail = '';
-	$webmasterMail = '';
-	$contactMail="";
+	$secret = 'secret';
 	
+	$adminMail = 'adminMail@email.com';
+	$webmasterMail = 'webmaster@email.com';
+	$contactMail="contact@email.com";
+	
+	$appId = "appID";
 	
 ?>

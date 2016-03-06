@@ -64,7 +64,7 @@ app.controller("FooterController", ['$scope', "$controller", function($scope, $c
 	});
 
 	$scope.boldDay = function(day){
-		console.log(new Date().getDay()  == daysToNumbersHash[day]);
+		//console.log(new Date().getDay()  == daysToNumbersHash[day]);
 		return new Date().getDay()  == daysToNumbersHash[day];
 	}
 
