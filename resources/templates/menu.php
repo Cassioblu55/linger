@@ -15,7 +15,7 @@
 				<li><a class="menu_link" href="<?php echo $baseURL;?>">Home</a></li>
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/events/">Events</a></li>
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/menu/">Menu</a></li>
-				<li><a class="menu_link">Book A Party</a></li>
+				<li><a class="menu_link" href="<?php echo $baseURL;?>views/book/">Book A Party</a></li>
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/location/">Location</a></li>
 				<li><a class="menu_link" href="<?php echo $baseURL;?>views/photos/">Photos</a></li>
 				

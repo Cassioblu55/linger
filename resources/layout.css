@@ -10,6 +10,11 @@ body, .main_nav{
 	border: 0px; 
 }
 
+.time{
+	margin-left: 10px;
+	font-style: italic;
+}
+
 .link{
 	list-style-type: none;
 	color: white;
@@ -29,14 +34,19 @@ body, .main_nav{
 	height: 100%;
 }
 
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
 
 .carouselImages{
 	text-align:center;
-	min-height: 400px;
 	max-height: 400px;
 	max-width: 100%;
 	margin-left: auto;
     margin-right: auto;
+    margin-top: auto;
     display:block;
 }
 
