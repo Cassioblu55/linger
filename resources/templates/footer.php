@@ -44,9 +44,6 @@ app.controller("FooterController", ['$scope', "$controller", function($scope, $c
 
 	$scope.setFromFacebook("https://graph.facebook.com/157036440997632?fields=hours", function(data){
 		$scope.timesOpen= $scope.parseHours(data.hours);
-	});
-
-	$scope.setFromFacebook("https://graph.facebook.com/157036440997632?fields=hours", function(data){
 		$scope.open = $scope.parseOpen(data.hours);	
 	});
 	
