@@ -17,8 +17,9 @@
 							<div ng-repeat="drink in drink_column[drink_type]">
 								<div class="row">
 									<h4 class="primary-color" ng-click="(drink.image.source) ? showImage(drink.image, drink.name) : ''" ng-class="(drink.image.source) ? 'imageClick' : ''"><span style="color: white;" ng-show="drink.image.source">* </span>{{drink.name}}</h4>
+									<div ng-show="drink.price != 0 && !drink.description" class="col-sm-1 bold">${{drink.price}}</div>
 								</div>
-								<div class="row">
+								<div ng-show="drink.description" class="row">
 									<p class="showDisplay" ng-class="(drink.price != 0) ? 'col-sm-11' : ''">{{drink.description}}</p>
 									<div ng-show="drink.price != 0" class="col-sm-1 bold">${{drink.price}}</div>
 								</div>

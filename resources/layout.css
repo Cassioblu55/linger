@@ -10,6 +10,10 @@ body, .main_nav{
 	border: 0px; 
 }
 
+.color-danger{
+	color: #be261c;
+}
+
 .time{
 	margin-left: 10px;
 	font-style: italic;

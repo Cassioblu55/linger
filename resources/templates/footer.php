@@ -5,8 +5,9 @@
 			<div class="row">
 				<div class="col-md-4">
 					<h4 class="italic">Hours</h4>
+					<span>We are now: <span ng-class="(!open) ? 'color-danger' : 'primary-color'">{{(open) ? 'Open' : 'Closed'}}</span></span>
 					<div ng-repeat = "hourKey in getKeys(timesOpen)" ng-class="(boldDay(hourKey)) ? 'bold italic' : ''">
-						<span class="primary-color">{{hourKey}}</span>: <span style="color: red;" ng-show="timesOpen[hourKey].length==0">Closed</span> <span ng-repeat="openTime in timesOpen[hourKey]">{{openTime.open}}-{{openTime.close}} </span>
+						<span class="primary-color">{{hourKey}}</span>: <span ng-show="timesOpen[hourKey].length==0">Closed</span> <span ng-repeat="openTime in timesOpen[hourKey]">{{openTime.open}}-{{openTime.close}} </span>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -41,28 +42,14 @@
 app.controller("FooterController", ['$scope', "$controller", function($scope, $controller){
 	angular.extend(this, $controller('UtilsController', {$scope: $scope}));	
 
-	var daysApprevHash ={'Sunday': 'sun','Monday' : 'mon', 'Tuesday': 'tue', 'Wednesday': 'wed', 'Thursday' : 'thu','Friday': 'fri','Saturday':'sat'}
-
-	$scope.timesOpen = {'Sunday' : [], 'Monday': [], 'Tuesday' : [], 'Wednesday' : [], 'Thursday': [], 'Friday' : [], 'Saturday' : []};
-	
 	$scope.setFromFacebook("https://graph.facebook.com/157036440997632?fields=hours", function(data){
-		//console.log(data.hours);
-		var hours = data.hours;
-		var daysKeys = Object.keys(daysApprevHash)
-		var hourKeys = Object.keys(hours);
-		for(var y=0; y<daysKeys.length; y++){
-			var key = daysKeys[y];
-			for(var x=0; x<hourKeys.length; x++){
-				var hourKey = hourKeys[x];
-				var gotTime = hourKey.split(daysApprevHash[key]);
-				if(gotTime.length == 2){
-					var openClose = (hourKey.split('open').length==2) ? 'open' : 'close';
-					addTime($scope.timesOpen, key, openClose, hours[hourKey]);
-				}
-			}
-		}
+		$scope.timesOpen= $scope.parseHours(data.hours);
 	});
 
+	$scope.setFromFacebook("https://graph.facebook.com/157036440997632?fields=hours", function(data){
+		$scope.open = $scope.parseOpen(data.hours);	
+	});
+	
 	$scope.boldDay = function(day){
 		//console.log(new Date().getDay()  == daysToNumbersHash[day]);
 		return new Date().getDay()  == daysToNumbersHash[day];
@@ -78,22 +65,6 @@ app.controller("FooterController", ['$scope', "$controller", function($scope, $c
 	$scope.setFromFacebook("https://graph.facebook.com/157036440997632?fields=phone", function(data){
 		$scope.phoneNumber = data.phone;
 		});
-	
-
-	function addTime(hash, day, openClosed, time){
-		var timeDisplay = getDisplayFromMilitaryString(time);
-		var currentDay = hash[day];
-		var placed = false
-		angular.forEach(currentDay, function (row) {
-			if(!row[openClosed]){
-				row[openClosed] = timeDisplay;
-				placed = true;
-			}
-		});
-		if(!placed){currentDay.push({}); currentDay[currentDay.length-1][openClosed] = timeDisplay;}
-	}
-
-	
 	
 }]);
 </script>
