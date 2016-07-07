@@ -1,3 +1,5 @@
+<link rel="icon" href="<?php echo $baseURL;?>resources/icons/favicon.ico">
+
 <head>
 	<script src="<?php echo $baseURL;?>resources/jquery/dist/jquery.js"></script>
 	<script src="<?php echo $baseURL;?>resources/bootstrap/dist/js/bootstrap.min.js"></script>
