@@ -16,7 +16,6 @@ if(count($users) > 0){
 }
 
 if(!empty($_POST)){
-	echo $email;
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	

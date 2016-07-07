@@ -33,7 +33,7 @@ function getDayNumber(event){
 function getDateQuery(startDate, endDate){
 	var startDate = Date.parse(startDate);
 	var endDate = Date.parse(endDate);
-	var query = baseURL+'/views/events/data.php?startDate='+startDate+'&endDate='+endDate;
+	var query = baseURL+'views/events/data.php?startDate='+startDate+'&endDate='+endDate;
 	return query;
 }
 

@@ -96,7 +96,7 @@
 				</div>
 			</div>
 				
-			<input type="text" ng-model="imageText" class="" name="image" >		
+			<input type="text" ng-model="imageText" class="hidden" name="image" >		
 			
 		</form>
 	
