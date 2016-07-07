@@ -5,6 +5,7 @@ $defaultTitle="The Linger"?>
 <html ng-app="app">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <script type="text/javascript">var baseURL = "<?php echo $baseURL;?>";</script>
+<link rel="icon" href="<?php echo $baseURL;?>resources/icons/favicon.ico">
 
 <?php include_once $serverPath.'resources/templates/header.php';?>
 <link rel="stylesheet" href="<?php echo $baseURL;?>resources/layout.css"/>	
