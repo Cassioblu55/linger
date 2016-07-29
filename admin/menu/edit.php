@@ -42,18 +42,39 @@
 							<input type="text" name="name" class="form-control" ng-model="drink.name" placeholder="Name">
 						</div>
 						<!-- name ends -->
-						
+
 						<!-- type -->
-						<div class="row form-group">
+						<div class="row form-group" ng-hide="useNewType">
 							<div class="col-md-6">
 								<label for="type">Type</label>
-								<select class="form-control" required="required" ng-model= "drink.type" name="type" id="type">
+								<select class="form-control" ng-disabled="useNewType" required="required" ng-model= "drink.type" id="type">
 									<option value=''>Select One</option>
 									<option ng-repeat="type in drink_types" ng-selected="drink.type==type">{{type}}</option>
 								</select>
 							</div>
 						</div>
 						<!-- type ends -->
+
+						<!-- new type -->
+						<div class="row form-group">
+							<div class="col-md-6" ng-show="useNewType">
+								<label>New Type</label>
+								<input ng-disabled="!useNewType" ng-model="drink.type" class="form-control">
+							</div>
+
+						</div>
+
+						<!-- use new type -->
+						<label class="checkbox-inline ">
+							<input type="checkbox" ng-model="useNewType"><span class="bold">Use New Type</span>
+						</label>
+
+						<!-- end use new type -->
+
+
+						<input class="hidden" name="type" ng-model="drink.type">
+						<!-- new type ends
+
 						
 					<!-- Description -->
 					<div class="form-group">
@@ -112,9 +133,16 @@ app.controller('AddEditDrink', ['$scope', "$controller" , function($scope, $cont
 	$scope.addOrEdit = "Add";
 	$scope.saveOrUpdate = "Save";
 	$scope.drink = {};
-	$scope.drink_types = ['Vodka','Cognac','Tequila','Rum','Gin','Whiskey','Beer','Wine','Sparkling Wines','Mocktails','Other Beverages'];
+
+	$scope.setFromGet("data.php?get=drink_types", function(data){
+		$scope.drink_types = data;
+	});
 
 	$scope.menuImage = {};
+
+	$scope.$watch("useNewType", function(val){
+		$scope.drink.type = '';
+	});
 
 	$scope.setMenuImage = function(image){
 		$scope.menuImage = image;

@@ -55,6 +55,9 @@ function runQuery($query){
 		exit;
 	}
 	while ( $row = $result->fetch_assoc () ) {
+		foreach ($row as $key => $value){
+			$row[$key] = utf8_encode($row[$key]);
+		}
 		array_push($results,$row);
 	}
 	$db->close();
@@ -94,17 +97,6 @@ function getColumnNamesWithTable($table){
 	}
 	return $columns;
 }
-
-
-// function dieOnMissingRequired($array){
-// 	foreach ($array as $key){
-// 		$name = ($array[$key] || $key);
-// 		if(empty($_POST[$key])){
-// 			die("Please enter $name");
-// 		}
-// 	}
-	
-// }
 
 function getRequiredColumns($table){
 	$result = getColumns($table);
