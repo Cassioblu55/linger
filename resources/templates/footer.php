@@ -7,7 +7,7 @@
 					<h4 class="italic">Hours</h4>
 					<span>We are now: <span ng-class="(!open) ? 'color-danger' : 'primary-color'">{{(open) ? 'Open' : 'Closed'}}</span></span>
 					<div ng-repeat = "hourKey in getKeys(timesOpen)" ng-class="(boldDay(hourKey)) ? 'bold italic' : ''">
-						<span class="primary-color">{{hourKey}}</span>: <span ng-show="timesOpen[hourKey].length==0">Closed</span> <span ng-repeat="openTime in timesOpen[hourKey]">{{openTime.open}}-{{openTime.close}} </span>
+						<span class="primary-color">{{hourKey}}</span>: <span ng-show="timesOpen[hourKey].length==0">Private Parties</span> <span ng-repeat="openTime in timesOpen[hourKey]">{{openTime.open}}-{{openTime.close}} </span>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -48,7 +48,6 @@ app.controller("FooterController", ['$scope', "$controller", function($scope, $c
 	});
 	
 	$scope.boldDay = function(day){
-		//console.log(new Date().getDay()  == daysToNumbersHash[day]);
 		return new Date().getDay()  == daysToNumbersHash[day];
 	}
 
