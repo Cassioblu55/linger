@@ -129,20 +129,20 @@ include_once $serverPath.'resources/templates/adminHead.php';
 
 <div ng-controller="MenuAdminImportController">
 	<form action="import.php" method="post" enctype="multipart/form-data">
-		<div class="container-fluid">
+		<div class="container-fluid col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h1 class="panel-title">Import Menu Items</h1>
 				</div>
 
 
-				<body class="panel-body">
+				<div class="panel-body">
 
 					<div class="form-group">
 						<label for='file'>File</label>
 						<input name="file" class="form-control" id="name" type="file">
 					</div>
-				</body>
+				</div>
 
 				<div class="panel-footer">
 					<button type="submit" class="btn btn-primary">Upload</button>

@@ -9,6 +9,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading clearfix">
 				<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Menu Items</h4>
+				<a href="import.php" class="btn btn-default pull-right" style="margin-left: 5px">Import CSV</a>
 				<a href="edit.php" class="btn btn-primary pull-right">Add</a>
 			</div>
 			<div class="panel-body">
