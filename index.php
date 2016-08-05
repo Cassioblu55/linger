@@ -64,24 +64,26 @@
 
 <script src="<?php echo $baseURL;?>resources/eventSort.js"></script>
 <script>
-app.controller("LandingPageController", ['$scope', "$controller" , function($scope, $controller){
-	angular.extend(this, $controller('GetEventsController', {$scope: $scope}));
+	setMainMenuActiveLink("mainMenu_main");
 
-	$scope.setFromGet('<?php echo $baseURL;?>resources/data.php?get=carousel', function(data){
-		angular.forEach(data, function (row) {
-			row.image = row.image.parseEscape();
-			});
-		$scope.carouselPhotos = data;
-	});
+	app.controller("LandingPageController", ['$scope', "$controller" , function($scope, $controller){
+		angular.extend(this, $controller('GetEventsController', {$scope: $scope}));
 
-	$scope.start_date = moment().format('MM/DD/YY');
-	$scope.end_date = moment().add(7, 'days').format('MM/DD/YY');
+		$scope.setFromGet('<?php echo $baseURL;?>resources/data.php?get=carousel', function(data){
+			angular.forEach(data, function (row) {
+				row.image = row.image.parseEscape();
+				});
+			$scope.carouselPhotos = data;
+		});
 
-	$scope.getEvents($scope.start_date, $scope.end_date, function(data){
-		$scope.events = data.slice(0,4);
-	})
+		$scope.start_date = moment().format('MM/DD/YY');
+		$scope.end_date = moment().add(7, 'days').format('MM/DD/YY');
 
-}]);
+		$scope.getEvents($scope.start_date, $scope.end_date, function(data){
+			$scope.events = data.slice(0,4);
+		})
+
+	}]);
 
 </script>
 

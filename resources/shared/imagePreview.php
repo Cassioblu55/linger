@@ -20,7 +20,7 @@
 
 <script>
 app.controller('ImagePreviewController', ['$scope', "$controller", function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
+	angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 
 	$scope.addLink = function(array){
 		angular.forEach(array, function (row) {

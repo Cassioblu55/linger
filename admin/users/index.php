@@ -27,7 +27,7 @@
 
 <script>
 app.controller("UserIndexController", ['$scope', "$controller" , function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
+	angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 	
 	$scope.gridModel = {enableFiltering: true, enableColumnMenus: false, enableColumnResizing: true, showColumnFooter: true , enableSorting: false, showGridFooter: true, enableRowHeaderSelection: false, rowHeight: 42};
 	$scope.gridModel.columnDefs = [	{field: 'username'},{field: 'email'},{field: 'active_display', name: 'Active'},

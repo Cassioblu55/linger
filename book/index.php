@@ -1,7 +1,7 @@
 <?php
 	$title = "Book a Linger Party";
-	include_once '../../config/config.php';
-	include_once $serverPath.'resources/templates/head.php';
+	include_once '../config/config.php';
+	include_once $serverPath . 'resources/templates/head.php';
 ?>
 <div ng-controller="BookAPartyIndexController">
 	<div class="container-fluid">
@@ -43,15 +43,17 @@
 </div>
 		
 <script type="text/javascript">
-app.controller('BookAPartyIndexController', ['$scope', '$controller', function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
+	setMainMenuActiveLink("mainMenu_book");
 
-	$scope.setFromFacebook("https://graph.facebook.com/157036440997632?fields=phone", function(data){
-		$scope.phoneNumber = data.phone;
-		});
+	app.controller('BookAPartyIndexController', ['$scope', '$controller', function($scope, $controller){
+		angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 
-}]);
+		$scope.setFromFacebook("https://graph.facebook.com/157036440997632?fields=phone", function(data){
+			$scope.phoneNumber = data.phone;
+			});
+
+	}]);
 
 </script>		
 
-<?php include_once $serverPath.'resources/templates/footer.php'; ?>
+<?php include_once $serverPath . 'resources/templates/footer.php'; ?>

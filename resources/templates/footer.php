@@ -1,3 +1,5 @@
+
+
 <div ng-controller="FooterController">
 	<div class="container-fluid">
 		<hr style="margin-top: 15px" class="title_line">
@@ -13,17 +15,17 @@
 				<div class="col-md-4">
 					<h4 class="italic">Contact Us</h4>
 					<ul style="padding: 0px;">
-						<li class="link"><a class="link primary-color-on-hover" href="http://maps.apple.com/?q=4142 167th St Oak Forest, Illinois">Visit: <span class="underline">4142 167th St Oak Forest, Illinois</span></a>
-						<li class="link"><a class="link primary-color-on-hover" ng-href="tel: {{getPhoneCall(phoneNumber)}}">Call: <span class="underline">{{phoneNumber}}</span></a></li>
-						<li class="link"><a class="link primary-color-on-hover" href="mailto:<?php echo $contactMail;?>">Email Us: <span class="underline"><?php echo $contactMail;?></span></a>
+						<li class="link"><a title="Stop by!" class="link primary-color-on-hover" href="http://maps.apple.com/?q=4142 167th St Oak Forest, Illinois">Visit: <span class="underline">4142 167th St Oak Forest, Illinois</span></a>
+						<li class="link"><a title="Give Us a Call!" class="link primary-color-on-hover" ng-href="tel: {{getPhoneCall(phoneNumber)}}">Call: <span class="underline">{{phoneNumber}}</span></a></li>
+						<li class="link"><a title="Ask us a question" class="link primary-color-on-hover" href="mailto:<?php echo $contactMail;?>">Email Us: <span class="underline"><?php echo $contactMail;?></span></a>
 					</ul>
 					
 				</div>
 				<div class="col-md-4">
 					<h4 class="italic">Links</h4>
 					<ul style="padding: 0px;">
-						<li class="link"><a class="link primary-color-on-hover underline" href="https://www.facebook.com/thelingermartinibar/timeline">Facebook</a></li>
-						<li class="link"><a class="link primary-color-on-hover underline" href="https://www.instagram.com/linger_martini_bar/">Instagram</a></li>
+						<li class="link"><a class="link primary-color-on-hover underline" title="Like Us on Facebook" href="https://www.facebook.com/thelingermartinibar/timeline">Facebook</a></li>
+						<li class="link"><a class="link primary-color-on-hover underline" title="Follow us On Instagram" href="https://www.instagram.com/linger_martini_bar/">Instagram</a></li>
 						<li class="link"><a class="link primary-color-on-hover underline" href="<?php echo $baseURL;?>admin/">Admin</a></li>
 					</ul>
 				</div>
@@ -40,7 +42,7 @@
 
 <script>
 app.controller("FooterController", ['$scope', "$controller", function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));	
+	angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 
 	$scope.setFromFacebook("https://graph.facebook.com/157036440997632?fields=hours", function(data){
 		$scope.timesOpen= $scope.parseHours(data.hours);
@@ -65,4 +67,5 @@ app.controller("FooterController", ['$scope', "$controller", function($scope, $c
 }]);
 </script>
 
+</body>
 </html>

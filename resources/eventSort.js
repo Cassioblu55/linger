@@ -33,12 +33,12 @@ function getDayNumber(event){
 function getDateQuery(startDate, endDate){
 	var startDate = Date.parse(startDate);
 	var endDate = Date.parse(endDate);
-	var query = baseURL+'views/events/data.php?startDate='+startDate+'&endDate='+endDate;
+	var query = baseURL+'events/data.php?startDate='+startDate+'&endDate='+endDate;
 	return query;
 }
 
 app.controller('GetEventsController', ['$scope', '$controller', function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));	
+	angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 	
 	$scope.getEvents = function(startDate, endDate, setFunct){
 		$scope.setFromGet(getDateQuery(startDate, endDate), function(e){

@@ -174,7 +174,7 @@ td.photoNav:hover{
 
 
 .navbar-default .navbar-nav > li > a {
-    color: white;
+    color: inherit;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
@@ -199,9 +199,16 @@ a.menu_link{
 }
 
 a.menu_link:hover {
-        color: #d9ca76;
-    
+	color: #d9ca76;
     text-decoration: none;
+}
+
+a.menu_link_active{
+	color: #d9ca76;
+	font-size: 25px;
+	padding: 6px;
+	font-family: Georgia;
+	cursor: pointer;
 }
 
 .navbar .navbar-nav {

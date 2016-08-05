@@ -76,8 +76,8 @@ app.controller("PhotoAdminIndexController", ['$scope', "$controller" , function(
 	$scope.HiddenAlbumnsGridShow = true;
 	var gridOptions = {enableFiltering: true, enableColumnMenus: false, enableColumnResizing: true, showColumnFooter: true , enableSorting: false, showGridFooter: true, enableRowHeaderSelection: false, rowHeight: 42};
 
-	$scope.ShownAlbumnsGrid = clone(gridOptions);
-	$scope.HiddenAlbumnsGrid = clone(gridOptions);
+	$scope.ShownAlbumnsGrid = cloneHashObject(gridOptions);
+	$scope.HiddenAlbumnsGrid = cloneHashObject(gridOptions);
 	$scope.ShownAlbumnsGrid.columnDefs = [{field: 'name'}, {field: 'hide', enableFiltering: false, width: 67,  cellTemplate: '<button class="btn btn-danger" ng-click="grid.appScope.deleteWhiteList(row.entity.id);">Hide</button>'}];
 	$scope.HiddenAlbumnsGrid.columnDefs = [{field: 'show', enableFiltering: false, width: 67,  cellTemplate: '<button class="btn btn-primary" ng-click="grid.appScope.addWhiteList(row.entity.id);">Show</button>'},{field: 'name'}];
 
@@ -131,7 +131,7 @@ app.controller("PhotoAdminIndexController", ['$scope', "$controller" , function(
 	}
 
 	$scope.moveCarouselImage = function(upOrDown){
-		var image = clone($scope.selectedPhoto);
+		var image = cloneHashObject($scope.selectedPhoto);
 		console.log(image.id);
 		var newOrder = (upOrDown =='up') ? image.order+1 : image.order-1
 		var data = {image: JSON.stringify(image.image).sanitize(), order: newOrder+''};

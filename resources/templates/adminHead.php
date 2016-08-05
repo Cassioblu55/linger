@@ -1,5 +1,8 @@
-<?php include_once $serverPath.'admin/login/requireAdmin.php';
-$defaultTitle="Linger Admin"?>
+<?php
+include_once $serverPath.'admin/login/requireAdmin.php';
+$defaultTitle="Linger Admin";
+$defaultDescription = "The Linger Martini Bar Admin";
+?>
 
 <!doctype html>
 

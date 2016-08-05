@@ -117,9 +117,9 @@ include_once $serverPath.'resources/templates/adminHead.php';
 
 <script>
 app.controller('CreateAccountController', ['$scope', "$controller" , function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
+	angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 
-	$scope.email = getUrlParam('email');
+	$scope.email = getUrlValueByParam('email');
 
 	$scope.vaildForm = function(){
 		return !($scope.password && $scope.password_confirm && $scope.password_confirm == $scope.password);

@@ -161,7 +161,7 @@ include_once $serverPath.'resources/templates/adminHead.php';
 
 <script>
 	app.controller('MenuAdminImportController', ['$scope', "$controller" , function($scope, $controller) {
-		angular.extend(this, $controller('UtilsController', {$scope: $scope}));
+		angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 
 
 	}]);

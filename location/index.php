@@ -1,7 +1,7 @@
 <?php
 	$title = "Linger Location";	
-	include_once  '../../config/config.php';
-	include_once $serverPath.'resources/templates/head.php';
+	include_once  '../config/config.php';
+	include_once $serverPath . 'resources/templates/head.php';
 	
 ?>
 <div ng-controller = "LocationIndexController">
@@ -19,7 +19,7 @@
 				</div>
 				<div class="col-md-6">
 					<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="100%" height="440" 
-						src="https://maps.google.com/maps?hl=en&q=4142 167th St Oak Forest, Illinois&ie=UTF8&t=roadmap&z=10&iwloc=B&output=embed">
+						src="https://maps.google.com/maps?hl=en&q=4142 West 167th Street, Oak Forest, Illinois 60452&ie=UTF8&t=roadmap&z=10&iwloc=B&output=embed">
 					</iframe>
 				
 				</div>
@@ -38,14 +38,16 @@
 
 
 <script>
-app.controller("LocationIndexController", ['$scope', "$controller" , function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
-	
-	
-}]);
+	setMainMenuActiveLink("mainMenu_location");
+
+	app.controller("LocationIndexController", ['$scope', "$controller" , function($scope, $controller){
+		angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
+
+
+	}]);
 
 </script>
 
 							
 							
-<?php include_once $serverPath.'resources/templates/footer.php'; ?>
+<?php include_once $serverPath . 'resources/templates/footer.php'; ?>

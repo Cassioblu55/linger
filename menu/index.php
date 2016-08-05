@@ -1,8 +1,9 @@
 <?php
 	$title = "Linger Menu";	
-	include_once  '../../config/config.php';
+	$description = "Linger Drink Menu";
+
+	include_once  '../config/config.php';
 	include_once $serverPath.'resources/templates/head.php';
-	
 ?>
 
 <div ng-controller="MenuViewIndexController">
@@ -60,74 +61,76 @@
 </div>
 
 <script>
-app.controller("MenuViewIndexController", ['$scope', "$controller" , function($scope, $controller){
-	angular.extend(this, $controller('UtilsController', {$scope: $scope}));
+	setMainMenuActiveLink("mainMenu_menu");
 
-	var minWidth = 999;
+	app.controller("MenuViewIndexController", ['$scope', "$controller" , function($scope, $controller){
+		angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 
-	function setStyle(large){
-		if(large){
-			$('#drinkColumn1').attr('style', "border-left: thin solid white; padding-left: 50px");
-	        $('#drinkColumn0').attr("style","padding-right: 50px");
-		}else{
-			 $('#drinkColumn0').attr('style', '');
-		     $('#drinkColumn1').attr('style', '');
+		var minWidth = 999;
+
+		function setStyle(large){
+			if(large){
+				$('#drinkColumn1').attr('style', "border-left: thin solid white; padding-left: 50px");
+		        $('#drinkColumn0').attr("style","padding-right: 50px");
+			}else{
+				 $('#drinkColumn0').attr('style', '');
+			     $('#drinkColumn1').attr('style', '');
+			}
 		}
-	}
 
-	$(window).load(function(){
-		setStyle($(window).width() > minWidth);
- 	});
-	
-	
-	$(window).bind("resize",function(){
-		setStyle($(window).width() > minWidth);
+		$(window).load(function(){
+			setStyle($(window).width() > minWidth);
 	    });
 
-	// ng-style="($index==1) ?  {'border-left': 'thin solid white', 'padding-left' : '50px'}: {'padding-right' : '50px'}"
 
-	
-	$scope.showImage = function(image, drinkName){
-		$scope.activeImage = image;
-		$scope.activeImage.drinkName = drinkName;
-		$('#imageModal').modal('show');
-	}
-	
-	//Pull drinks from database
-	$scope.setFromGet('data.php?get=menu', function(data){
-		//console.log(data);
-		var drinks = {};
-		//Divide them by type
-		for(var i=0; i<data.length; i++){
-			var drink = data[i];
-			if(!drinks[drink.type] ){
-				drinks[drink.type] = [];
-			}
-			if(drink.image){
-				drink.image = drink.image.parseEscape();
-				}
-			drinks[drink.type].push(drink);
+		$(window).bind("resize",function(){
+			setStyle($(window).width() > minWidth);
+		    });
+
+		// ng-style="($index==1) ?  {'border-left': 'thin solid white', 'padding-left' : '50px'}: {'padding-right' : '50px'}"
+
+
+		$scope.showImage = function(image, drinkName){
+			$scope.activeImage = image;
+			$scope.activeImage.drinkName = drinkName;
+			$('#imageModal').modal('show');
 		}
-		//Split the drinks in half make the number of drinks on each side as even as possible
-		$scope.drinks = [{},{}];
-		var columnOneTotal = 0, columnTwoTotal = 0;
-		var types = $scope.getKeys(drinks);
-		for(var i=0; i<types.length; i++){
-			var type = types[i];
-			if(drinks[type].length >0){
-				if(columnOneTotal < columnTwoTotal){
-					$scope.drinks[0][type] = drinks[type];
-					columnOneTotal += drinks[type].length;
-					}
-				else{
-					$scope.drinks[1][type] = drinks[type];
-					columnTwoTotal += drinks[type].length;
-					}
-			}
-		}		
-	});
 
-}]);
+		//Pull drinks from database
+		$scope.setFromGet('data.php?get=menu', function(data){
+			//console.log(data);
+			var drinks = {};
+			//Divide them by type
+			for(var i=0; i<data.length; i++){
+				var drink = data[i];
+				if(!drinks[drink.type] ){
+					drinks[drink.type] = [];
+				}
+				if(drink.image){
+					drink.image = drink.image.parseEscape();
+					}
+				drinks[drink.type].push(drink);
+			}
+			//Split the drinks in half make the number of drinks on each side as even as possible
+			$scope.drinks = [{},{}];
+			var columnOneTotal = 0, columnTwoTotal = 0;
+			var types = $scope.getKeys(drinks);
+			for(var i=0; i<types.length; i++){
+				var type = types[i];
+				if(drinks[type].length >0){
+					if(columnOneTotal < columnTwoTotal){
+						$scope.drinks[0][type] = drinks[type];
+						columnOneTotal += drinks[type].length;
+						}
+					else{
+						$scope.drinks[1][type] = drinks[type];
+						columnTwoTotal += drinks[type].length;
+						}
+				}
+			}
+		});
+
+	}]);
 </script>
 
 <?php include_once $serverPath.'resources/templates/footer.php'; ?>

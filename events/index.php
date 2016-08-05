@@ -1,7 +1,7 @@
 <?php
 	$title = "Linger Events";
-	include_once '../../config/config.php';
-	include_once $serverPath.'resources/templates/head.php';
+	include_once '../config/config.php';
+	include_once $serverPath . 'resources/templates/head.php';
 ?>
 
 <div ng-controller="EventIndexController">
@@ -41,10 +41,12 @@
 	</div>
 	</div>
 </div>
-<?php include $serverPath.'resources/templates/footer.php';?>
+<?php include $serverPath . 'resources/templates/footer.php';?>
 <script src="<?php echo $baseURL;?>resources/eventSort.js"></script>
 
 <script>
+	setMainMenuActiveLink("mainMenu_events");
+
 	app.controller('EventIndexController', ['$scope', '$controller', function($scope, $controller){
 		angular.extend(this, $controller('GetEventsController', {$scope: $scope}));	
 				
@@ -59,4 +61,4 @@
 
 </script>
 
-<?php include_once $serverPath.'resources/templates/footer.php'; ?>
+<?php include_once $serverPath . 'resources/templates/footer.php'; ?>
