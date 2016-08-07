@@ -19,7 +19,6 @@ function runOnPostWithAllRequiredParameters($functionToRun, $listOfRequiredPostP
 function runOnPostWithAllRequiredParametersWithErrorReroute($functionToRun, $listOfRequiredPostParameters=[]){
 	global $serverPath;
 	require_once $serverPath."utils/redirectUtilities.php";
-	echo isPost();
 	if(isPost()) {
 		$missingPostParameters = findMissingPostParameters($listOfRequiredPostParameters);
 		if (count($missingPostParameters) == 0) {
