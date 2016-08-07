@@ -106,7 +106,7 @@ app.controller("PhotoAdminIndexController", ['$scope', "$controller" , function(
 
 	$scope.addImageToCarousel = function(image){
 		var post = "insert.php?carousel_image=true";
-		$scope.runPost(post, {image: JSON.stringify(image).sanitize()},$scope.getCarosuelImages);
+		$scope.runPost(post, {image: JSON.stringify(image).escapeSpecialChars()},$scope.getCarosuelImages);
 		$('#imageSelectModal').modal('hide');
 	}
 

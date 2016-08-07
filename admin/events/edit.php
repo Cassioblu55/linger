@@ -1,27 +1,25 @@
 <?php
-	include_once '../../config/config.php';
-	include_once $serverPath.'utils/db_post.php';
+include_once '../../config/config.php';
+include_once $serverPath.'utils/db_post.php';
+include_once $serverPath.'utils/postUtilities.php';
 	
+runOnPost("addOrUpdate");
+
+function addOrUpdate(){
 	$table = "events";
-	
-	if (! empty ( $_POST )) {
-		$data = createDataFromPost($table);
-		//$data['image'] = "'".addslashes(file_get_contents($_FILES['image']['tmp_name']))."'";
-		//$data['image_name'] = addslashes($_FILES['image']['name']);
-		if (empty ( $_GET ['id'] )) {
-			$id  = insertAndReturnId($table, $data);
-		}
-	
-		else {
-			update($table, $data);
-			$id = $_GET['id'];
-		}
-		header ( "Location: index.php");
-		die ( "Redirecting to index.php" );
-	
+	$data = createDataFromPost($table);
+
+	if (empty ( $_GET ['id'] )) {
+		insert($table, $data);
 	}
-	
-	include_once $serverPath.'resources/templates/adminHead.php';
+	else {
+		update($table, $data);
+	}
+	header ( "Location: index.php");
+	die ( "Redirecting to index.php" );
+}
+
+include_once $serverPath.'resources/templates/adminHead.php';
 ?>
 
 <div ng-controller="AddEditEvent">
@@ -264,7 +262,7 @@ app.controller('AddEditEvent', ['$scope', "$controller" , function($scope, $cont
 
 	$scope.$watch('eventImage', function(val){
 		if(val){
-			$scope.imageText = JSON.stringify(val).sanitize();
+			$scope.imageText = JSON.stringify(val).escapeSpecialChars();
 		}
 	},true);
 	

@@ -160,7 +160,7 @@ app.controller('AddEditDrink', ['$scope', "$controller" , function($scope, $cont
 
 	$scope.$watch('menuImage', function(val){
 		if(val){
-			$scope.imageText = JSON.stringify(val).sanitize();
+			$scope.imageText = JSON.stringify(val).escapeSpecialChars();
 		}
 	},true);
 

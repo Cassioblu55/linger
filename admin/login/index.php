@@ -1,44 +1,71 @@
 <?php session_start();
 	include_once '../../config/config.php';
 	include_once $serverPath.'utils/db_get.php';
-	
-	$login_ok = false;
-	if(!empty($_POST)){
-		if(!empty($_POST['username']) && !empty($_POST['password'])){
-			$table = "users";
-			$query = "SELECT * FROM ".getTableQuote($table)." WHERE (username='".$_POST['username']."' OR email='".$_POST['username']."') AND active=1;";
-			$user = runQuery($query);
-			if(count($user) == 1){
-				$user = $user[0];
-			}
-			if(isset($user['salt']) && isset($user['password']) && isset($user['username']) ){
-				$check_password = hash ( 'sha256', $_POST ['password'] . $user['salt'] );
-				for($round = 0; $round < 65536; $round ++) {
-					$check_password = hash ( 'sha256', $check_password . $user['salt'] );
-				}
-				
-				if ($check_password === $user['password']) {
-					// If they do, then we flip this to true
-					$login_ok = true;
-				}
-				
-				if ($login_ok) {
-					unset ( $user['salt'] );
-					unset ( $user ['password'] );
-					$_SESSION['user'] = $user;
-					
-					header ( "Location: ".$baseURL."admin/");
-					die ( "Redirecting to: admin page" );
-					
-				}
-				else{
-					sendErrorMessage("Username not found or password is incorrect");
-				}
-			
-			}else{
-				sendErrorMessage("Username not found or password is incorrect");
-			}
-			
+	include_once $serverPath."utils/redirectUtilities.php";
+	include_once $serverPath."utils/postUtilities.php";
+	include_once $serverPath."utils/generalUtilities.php";
+
+	$listOfRequiredPostParameters = ['password', 'username'];
+	runOnPostWithAllRequiredParametersWithErrorReroute('attemptLogin', $listOfRequiredPostParameters);
+
+	function attemptLogin(){
+		$user = getUserByUsernameOrEmail($_POST['username']);
+		$login_ok = ($user != null && isValidLogin($user, $_POST['password']));
+		if ($login_ok) {
+			setUserSession($user);
+		}
+		routeOnSuccessfulLoginOrReturnError($login_ok);
+	}
+
+	function getUserByUsernameOrEmail($usernameOrEmail){
+		$possibleUser = findUserByUsernameOrEmail($usernameOrEmail);
+
+		$listOfRequiredParameters = ['salt', 'password', 'username'];
+		$user = (hasAllRequiredParameters($possibleUser, $listOfRequiredParameters)) ? $possibleUser : null;
+		return $user;
+	}
+
+	function findUserByUsernameOrEmail($usernameOrEmail){
+		$table = getTableQuote("users");
+		$query = "SELECT * FROM $table WHERE (username='$usernameOrEmail' OR email='$usernameOrEmail') AND active=1;";
+		$queryReturn = runQuery($query);
+
+		$possibleUser = (count($queryReturn) == 1) ? $queryReturn[0] : null;
+		return $possibleUser;
+	}
+
+	function isValidLogin($user, $passwordGivenByUser){
+		$hashedPassword = getHashedPassword($passwordGivenByUser, $user["salt"]);
+		return $user['password'] == $hashedPassword;
+	}
+
+	function getHashedPassword($passwordGivenByUser, $salt){
+		$check_password = hash ( 'sha256', $passwordGivenByUser . $salt );
+		for($round = 0; $round < 65536; $round ++) {
+			$check_password = hash ( 'sha256', $check_password . $salt );
+		}
+		return $check_password;
+	}
+
+	function setUserSession($userSuccessfullyAuthenticated){
+		unset ( $userSuccessfullyAuthenticated['salt'] );
+		unset ( $userSuccessfullyAuthenticated ['password'] );
+		$_SESSION['user'] = $userSuccessfullyAuthenticated;
+	}
+
+	function routeOnSuccessfulLoginOrReturnError($login_ok){
+		global $baseURL;
+
+		if($login_ok){
+			header ( "Location: ".$baseURL."admin/");
+			die ( "Redirecting to: admin home page" );
+		}else{
+			$errorMessage = "Username not found or password is incorrect";
+			$url = $baseURL."admin/login";
+			$redirectUrl = addErrorMessageToUrl($url, $errorMessage);
+
+			header ( "Location: $redirectUrl");
+			die ( "Redirecting to: admin login page" );
 		}
 	}
 	

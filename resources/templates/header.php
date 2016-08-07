@@ -12,7 +12,7 @@
 	<script src="<?php echo $baseURL;?>resources/utils.js"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseURL;?>resources/angular-ui-grid/ui-grid.min.css" />
 	<link rel="stylesheet" type="text/css"  href="<?php echo $baseURL;?>resources/bootstrap/dist/css/bootstrap.min.css">
-	<script src="http://cassiohudson.com/utilities/js/errorDisplay/ed_1_0_0.js"></script>
+	<script src="http://cassiohudson.com/utilities/js/showServerMessages/ssm_1_0_0.js"></script>
 	<script src="http://cassiohudson.com/utilities/js/standardUtilities/su_1_0_0.js"></script>
 	<script src="http://cassiohudson.com/utilities/js/angularStandardUtilities/asu_1_0_0.js"></script>
 

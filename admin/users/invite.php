@@ -1,48 +1,79 @@
 <?php
-	include_once '../../config/config.php';
-	include_once $serverPath.'utils/db_post.php';
-	
-	if(!empty($_POST) && !empty($_POST['email'])){
-		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-		$headers .= 'From:'.$webmasterMail.' <'.$webmasterMail.'>' . "\r\n";
-		
-		$table = "invitations";
-		$users = runQuery("SELECT inviteKey FROM ".getTableQuote($table)." WHERE email='".$_POST['email']."';");
-		if(count($users) == 1){
-			$inviteKey = $users[0]['inviteKey'];
-		}else{
-			$inviteKey = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647)). dechex(mt_rand(0, 2147483647));
-			$table = 'invitations';
-			$data = [email => $_POST['email'], inviteKey => $inviteKey];
-			insert($table, $data);
-		}
-		
-		
-		$link = $externalLink."admin/login/createAccount.php?inviteKey=$inviteKey";
-		$message = "
-				<html>
-					<body>
-					<p>Follow this link and create this account:</p>
-					<p><a href=".$link.">Click Here</a></p>
-				
-				</body>
-				
-				</html>
-				";
-		
-		$subject = "You have been invited to create an account for: The Linger Martini Bar";
-		mail($_POST['email'], $subject, $message, $headers);
-		
-		header("Location: ". $baseURL."admin/users/");
-		
-		die("Redirecting to users");
-		
+
+include_once '../../config/config.php';
+include_once $serverPath."admin/login/requireAdmin.php";
+include_once $serverPath.'utils/db_post.php';
+include_once $serverPath . "utils/emailUtilities.php";
+include_once $serverPath."utils/postUtilities.php";
+
+$listOfRequiredPostParameters = ["email"];
+runOnPostWithAllRequiredParametersWithErrorReroute('sendInviteEmail', $listOfRequiredPostParameters);
+
+function sendInviteEmail(){
+	$emailAddressToSendInviteTo = $_POST['email'];
+	$emailSentSuccessfully = attemptSendInviteEmail($emailAddressToSendInviteTo);
+
+	redirectToIndexShowErrorOnFailed($emailSentSuccessfully);
+}
+
+function attemptSendInviteEmail($emailAddressToSendInviteTo){
+	$subject = "You have been invited to create an account for: The Linger Martini Bar";
+
+	$headers = getEmailHeader($_SESSION['user']['email'], "html");
+	$emailContent = getInviteEmailContent($emailAddressToSendInviteTo);
+
+	$emailSentSuccessfully = mail($emailAddressToSendInviteTo, $subject, $emailContent,$headers);
+	return $emailSentSuccessfully;
+}
+
+function getInviteEmailContent($email){
+	$link = getInviteLink($email);
+	$message = "
+			<html>
+				<body>
+				<p>Follow this link and create your account:</p>
+				<p><a href=".$link.">Click Here</a></p>
+			
+			</body>
+			
+			</html>
+			";
+	return $message;
+}
+
+function getInviteLink($email){
+	global $externalLink;
+	$inviteKey = getInviteKey($email);
+	return $externalLink."admin/login/createAccount.php?inviteKey=$inviteKey";
+}
+
+function getInviteKey($email){
+	$table = "invitations";
+	$sentInviteKey = runQuery("SELECT inviteKey FROM ".getTableQuote($table)." WHERE email='$email';");
+	if(count($sentInviteKey) == 1){
+		$inviteKey = $sentInviteKey[0]['inviteKey'];
+	}else {
+		$inviteKey = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647));
+
 	}
-	
-	include_once $serverPath.'resources/templates/adminHead.php';
-	
-	
+	return $inviteKey;
+}
+
+function redirectToIndexShowErrorOnFailed($emailSentSuccessfully){
+	global $baseURL;
+
+	$errorMessage = "Email could not be sent";
+	$successMessage = "Invite sent successfully";
+	$url = $baseURL."admin/users/index.php";
+
+	$url = ($emailSentSuccessfully) ? addSuccessMessageToUrl($url, $successMessage) : addErrorMessageToUrl($url, $errorMessage);
+
+	header("Location: $url");
+	die("Redirecting to users");
+}
+
+include_once $serverPath.'resources/templates/adminHead.php';
+
 ?>
 
 <div ng-controller="InviteController">
@@ -75,8 +106,6 @@
 app.controller('InviteController', ['$scope', "$controller" , function($scope, $controller){
 	angular.extend(this, $controller('LingerUtilsController', {$scope: $scope}));
 
-	
-	
 }]);
 
 </script>
